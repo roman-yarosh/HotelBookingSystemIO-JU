@@ -21,14 +21,16 @@ public class User {
         return userRegistered;
     }
 
+    public long getUserId() {
+        return userId;
+    }
+
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("User{");
-        sb.append("userId=").append(userId);
-        sb.append(", firstName='").append(firstName).append('\'');
-        sb.append(", lastName='").append(lastName).append('\'');
-        sb.append(", userRegistered=").append(userRegistered);
-        sb.append('}');
-        return sb.toString();
+        return "User{" + "userId=" + userId +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", userRegistered=" + userRegistered +
+                '}';
     }
 }
