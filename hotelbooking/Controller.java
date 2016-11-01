@@ -5,16 +5,21 @@ import java.util.Map;
 
 public class Controller {
 
+    UserDAO userDAO = new UserDAO();
+    HotelDAO hotelDAO = new HotelDAO();
+
     User registerUser(User user) {
-        return UserDAO.save(user);
+        user.setUserRegistered(true);
+        return userDAO.save(user);
     }
 
     List<Hotel> findHotelByName(String name) {
+        //hotelDAO.
         return null;
     }
 
     List<Hotel> findHotelByCity(String city) {
-        return null;
+        return hotelDAO.getByCity(city);
     }
 
     void bookRoom(long roomId, long userId, long hotelId) {

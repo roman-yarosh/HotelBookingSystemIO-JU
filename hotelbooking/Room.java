@@ -17,4 +17,18 @@ public class Room {
     public long getId() {
         return roomId;
     }
+
+    public void setUserReserved(User userReserved) {
+        this.userReserved = userReserved;
+    }
+
+    @Override
+    public String toString() {
+        return "\nRoom{" +
+                "roomId=" + roomId +
+                ", persons=" + persons +
+                ", price=" + price +
+                ", userReserved=" + userReserved +
+                "}";
+    }
 }
