@@ -6,6 +6,8 @@ public class Main {
 
         System.out.println("Hotel Online Booking System!");
 
+        UserDAO userDAO = new UserDAO();
+
         Controller controller = new Controller();
 
     }
