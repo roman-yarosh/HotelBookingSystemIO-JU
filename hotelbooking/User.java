@@ -1,6 +1,7 @@
 package hotelbooking;
 
-public class User {
+public class User implements HasGetIdMethod {
+
 
     private long userId;
     private String firstName;
@@ -21,7 +22,8 @@ public class User {
         return userRegistered;
     }
 
-    public long getUserId() {
+    @Override
+    public long getId() {
         return userId;
     }
 

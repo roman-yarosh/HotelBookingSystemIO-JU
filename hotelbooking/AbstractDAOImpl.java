@@ -5,10 +5,15 @@ import java.util.List;
 
 public class AbstractDAOImpl<T extends HasGetIdMethod> implements AbstractDAO<T> {
 
-    private List<T> list = new ArrayList<T>();
+    private List<T> list = new ArrayList<>();
 
     @Override
     public T getById(long id) {
+        for (T t : list){
+            if (t.getId() == id) {
+                return t;
+            }
+        }
         return null;
     }
 
@@ -43,6 +48,7 @@ public class AbstractDAOImpl<T extends HasGetIdMethod> implements AbstractDAO<T>
         for (int i = 0; i < list.size(); i++){
             if (list.get(i).getId() == id){
                 list.remove(i);
+                break;
             }
         }
     }

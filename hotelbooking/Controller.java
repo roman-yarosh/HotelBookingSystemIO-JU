@@ -6,7 +6,6 @@ import java.util.Map;
 public class Controller {
 
 
-
     User registerUser(User user) {
         return dao.save(user);
     }
