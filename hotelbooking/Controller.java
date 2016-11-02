@@ -1,5 +1,6 @@
 package hotelbooking;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -31,10 +32,40 @@ public class Controller {
         return hotelDAO.cancelRoomReservation(user, hotelId, roomId);
     }
 
+    //city - Kiev, hotelName - Radisson, price - 200, persons - 2
     List<Hotel> findRoom(Map<String, String> params) {
+        List<Hotel> hotelList = new ArrayList<>();
+        String city;
+        String hotelName;
+        double price = 0;
+        int persons = 0;
 
-
-
+        for(Map.Entry<String, String> paramsEntry : params.entrySet()) {
+            try {
+                if (paramsEntry.getKey() != null && paramsEntry.getValue() != null && paramsEntry.getKey().toLowerCase().contains("city")) {
+                    city = paramsEntry.getValue();
+                }
+                if (paramsEntry.getKey() != null && paramsEntry.getValue() != null && paramsEntry.getKey().toLowerCase().contains("name")) {
+                    hotelName = paramsEntry.getValue();
+                }
+                if (paramsEntry.getKey() != null && paramsEntry.getValue() != null && paramsEntry.getKey().toLowerCase().contains("price")) {
+                    try {
+                        price = Double.valueOf(paramsEntry.getValue());
+                    } catch (NumberFormatException e) {
+                        price = 0;
+                    }
+                }
+                if (paramsEntry.getKey() != null && paramsEntry.getValue() != null && paramsEntry.getKey().toLowerCase().contains("person")) {
+                    try {
+                        persons = Integer.parseInt(paramsEntry.getValue());
+                    } catch (NumberFormatException e) {
+                        persons =0;
+                    }
+                }
+            } catch (NullPointerException e){
+                System.err.println("NullPointerException exception in findRoom() in foreach map parameters!");
+            }
+        }
 
         return null;
     }

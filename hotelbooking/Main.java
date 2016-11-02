@@ -1,5 +1,8 @@
 package hotelbooking;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -17,18 +20,26 @@ public class Main {
 
         controller.getAllUsers().forEach(System.out::println);
 
+        Map<String, String> map = new HashMap<>();
+        map.put("persons", "2");
+        map.put("price", "300");
+        map.put("city", "Kiev");
+        map.put("hotelName", "Radisson");
+        controller.findRoom(map).forEach(System.out::println);
+        //controller.getAllHotels().forEach(System.out::println);
+
         long hotelId = 6;
         long userId = 2;
         long roomId = 55;
 
-        if (controller.bookRoom(roomId, userId, hotelId)) System.out.println(controller.getHotelById(hotelId));
+//        if (controller.bookRoom(roomId, userId, hotelId)) System.out.println(controller.getHotelById(hotelId));
 
         roomId = 53;
-        if (controller.bookRoom(roomId, userId, hotelId)) System.out.println(controller.getHotelById(hotelId));
+//        if (controller.bookRoom(roomId, userId, hotelId)) System.out.println(controller.getHotelById(hotelId));
 
         userId = 2;
         roomId = 53;
-        if (controller.cancelReservation(roomId, userId, hotelId)) System.out.println(controller.getHotelById(hotelId));
+//        if (controller.cancelReservation(roomId, userId, hotelId)) System.out.println(controller.getHotelById(hotelId));
 
      /*   hotelId = 150;
         try {
