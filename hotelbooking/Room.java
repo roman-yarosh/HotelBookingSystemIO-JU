@@ -2,7 +2,6 @@ package hotelbooking;
 
 public class Room {
 
-
     private long roomId;
     private int persons;
     private double price;
@@ -20,6 +19,10 @@ public class Room {
 
     public void setUserReserved(User userReserved) {
         this.userReserved = userReserved;
+    }
+
+    public User getUserReserved() {
+        return userReserved;
     }
 
     @Override

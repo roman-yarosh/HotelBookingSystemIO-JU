@@ -5,8 +5,8 @@ import java.util.Map;
 
 public class Controller {
 
-    UserDAO userDAO = new UserDAO();
-    HotelDAO hotelDAO = new HotelDAO();
+    static UserDAO userDAO = new UserDAO();
+    static HotelDAO hotelDAO = new HotelDAO();
 
     User registerUser(User user) {
         user.setUserRegistered(true);
@@ -14,24 +14,41 @@ public class Controller {
     }
 
     List<Hotel> findHotelByName(String name) {
-        //hotelDAO.
-        return null;
+        return hotelDAO.getByName(name);
     }
 
     List<Hotel> findHotelByCity(String city) {
         return hotelDAO.getByCity(city);
     }
 
-    void bookRoom(long roomId, long userId, long hotelId) {
-
+    boolean bookRoom(long roomId, long userId, long hotelId) {
+        User user = userDAO.getById(userId);
+        return hotelDAO.bookRoom(user, hotelId, roomId);
     }
 
-    void cancelReservation(long roomId, long userId, long hotelId) {
-
+    boolean cancelReservation(long roomId, long userId, long hotelId) {
+        User user = userDAO.getById(userId);
+        return hotelDAO.cancelRoomReservation(user, hotelId, roomId);
     }
 
     List<Hotel> findRoom(Map<String, String> params) {
+
+
+
+
         return null;
+    }
+
+    List<User> getAllUsers() {
+        return userDAO.getAll();
+    }
+
+    List<Hotel> getAllHotels() {
+        return hotelDAO.getAll();
+    }
+
+    Hotel getHotelById(long hotelId) {
+        return hotelDAO.getById(hotelId);
     }
 
 

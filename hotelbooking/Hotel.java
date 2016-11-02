@@ -29,6 +29,10 @@ public class Hotel implements HasGetIdMethod {
         return hotelCity;
     }
 
+    public List<Room> getHotelRooms() {
+        return hotelRooms;
+    }
+
     @Override
     public String toString() {
         return "\nHotel{" +
