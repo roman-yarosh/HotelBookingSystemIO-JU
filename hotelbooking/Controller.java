@@ -8,6 +8,12 @@ public class Controller {
     static UserDAO userDAO = new UserDAO();
     static HotelDAO hotelDAO = new HotelDAO();
 
+    private CurrentUser currentUser;
+
+    public Controller() {
+        this.currentUser = CurrentUser.getInstance();
+    }
+
     User registerUser(User user) {
         user.setUserRegistered(true);
         return userDAO.save(user);

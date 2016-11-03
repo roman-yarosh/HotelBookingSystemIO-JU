@@ -8,17 +8,21 @@ public class Main {
     public static void main(String[] args) {
 
         System.out.println("Hotel Online Booking System!");
+        Controller controller = new Controller();
+        CurrentUser currentUser = CurrentUser.getInstance();
 
         User user1 = new User(1, "Ivan", "Ivanov");
         User user2 = new User(2, "Petr", "Petrov");
         User user3 = new User(3, "Stepan", "Stepanov");
 
-        Controller controller = new Controller();
-
         controller.registerUser(user1);
         controller.registerUser(user2);
 
+        System.out.println("\nRegistered users:");
         controller.getAllUsers().forEach(System.out::println);
+
+        currentUser.setCurrentUser(user2);
+        System.out.println("\nCurrent user:\n" + currentUser.getCurrentUser());
 
         Map<String, String> map = new HashMap<>();
         map.put("persons", "2");
