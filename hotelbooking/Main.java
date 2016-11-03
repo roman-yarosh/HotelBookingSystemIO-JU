@@ -32,6 +32,7 @@ public class Main {
         long userId = 2;
         long roomId = 55;
 
+
 //        if (controller.bookRoom(roomId, userId, hotelId)) System.out.println(controller.getHotelById(hotelId));
 
         roomId = 53;

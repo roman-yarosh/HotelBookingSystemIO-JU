@@ -4,7 +4,6 @@ import java.util.List;
 
 public interface AbstractDAO<T extends HasGetIdMethod> {
 
-
     T getById(long id);
 
     List<T> getAll();

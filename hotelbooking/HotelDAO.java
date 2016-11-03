@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 public class HotelDAO extends AbstractDAOImpl<Hotel> {
 
+
     public HotelDAO() {
 
         Room room1 = new Room(1, 1, 100.0, 1);

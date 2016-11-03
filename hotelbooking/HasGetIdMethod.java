@@ -2,7 +2,6 @@ package hotelbooking;
 
 public interface HasGetIdMethod {
 
-
-    public long getId();
+    long getId();
 
 }

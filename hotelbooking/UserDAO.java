@@ -4,6 +4,7 @@ import java.util.List;
 
 public class UserDAO extends AbstractDAOImpl<User> {
 
+
     @Override
     public User getById(long id) {
         return super.getById(id);

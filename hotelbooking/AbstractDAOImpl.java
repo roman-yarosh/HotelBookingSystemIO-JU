@@ -5,6 +5,7 @@ import java.util.List;
 
 public class AbstractDAOImpl<T extends HasGetIdMethod> implements AbstractDAO<T> {
 
+
     private List<T> list = new ArrayList<>();
 
     @Override

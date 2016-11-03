@@ -1,10 +1,10 @@
 package hotelbooking;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class Controller {
+
 
     static UserDAO userDAO = new UserDAO();
     static HotelDAO hotelDAO = new HotelDAO();

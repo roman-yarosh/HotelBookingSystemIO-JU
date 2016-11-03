@@ -2,6 +2,7 @@ package hotelbooking;
 
 public class Room {
 
+
     private long roomId;
     private long hotelId;
     private int persons;

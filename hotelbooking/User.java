@@ -2,6 +2,7 @@ package hotelbooking;
 
 public class User implements HasGetIdMethod {
 
+
     private long userId;
     private String firstName;
     private String lastName;
