@@ -33,7 +33,7 @@ public class Controller {
     }
 
     //Example for map: city - Kiev, hotelName - Radisson, price - 200, persons - 2
-    List<Room> findRoom(Map<String, String> params) {
+    List<Hotel> findRoom(Map<String, String> params) {
         String city = null;
         String hotelName = null;
         double price = 0;
@@ -79,6 +79,4 @@ public class Controller {
     Hotel getHotelById(long hotelId) {
         return hotelDAO.getById(hotelId);
     }
-
-
 }

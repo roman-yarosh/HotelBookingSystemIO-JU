@@ -2,18 +2,15 @@ package hotelbooking;
 
 public class Room {
 
-
     private long roomId;
-    private long hotelId;
     private int persons;
     private double price;
     private User userReserved;
 
-    public Room(long roomId, int persons, double price, long hotelId) {
+    public Room(long roomId, int persons, double price) {
         this.roomId = roomId;
         this.persons = persons;
         this.price = price;
-        this.hotelId = hotelId;
     }
 
     public long getId() {
@@ -40,7 +37,6 @@ public class Room {
     public String toString() {
         return "\nRoom{" +
                 "roomId=" + roomId +
-                ", hotelId=" + hotelId +
                 ", persons=" + persons +
                 ", price=" + price +
                 ", userReserved=" + userReserved +

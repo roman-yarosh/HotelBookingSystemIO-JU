@@ -21,17 +21,17 @@ public class Main {
         controller.getAllUsers().forEach(System.out::println);
 
         Map<String, String> map = new HashMap<>();
-        //map.put("persons", "2");
+        map.put("persons", "2");
         map.put("price", "300");
         map.put("city", "Kiev");
-        //map.put("hotelName", "Radisson");
+        map.put("hotelName", "Radisson");
         controller.findRoom(map).forEach(System.out::print);
+
         //controller.getAllHotels().forEach(System.out::println);
 
         long hotelId = 6;
         long userId = 2;
         long roomId = 55;
-
 
 //        if (controller.bookRoom(roomId, userId, hotelId)) System.out.println(controller.getHotelById(hotelId));
 
