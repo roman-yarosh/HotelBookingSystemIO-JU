@@ -66,7 +66,5 @@ public class Main {
         } catch (NullPointerException e) {
             System.out.println("Found 0 hotels in Kiev.");
         }*/
-
-
     }
 }

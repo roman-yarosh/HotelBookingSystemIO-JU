@@ -17,5 +17,4 @@ public interface AbstractDAO<T extends HasGetIdMethod> {
     void deleteAll(List<T> t);
 
     void deleteById(long id);
-
 }

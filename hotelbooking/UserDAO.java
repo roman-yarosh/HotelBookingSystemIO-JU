@@ -4,7 +4,6 @@ import java.util.List;
 
 public class UserDAO extends AbstractDAOImpl<User> {
 
-
     @Override
     public User getById(long id) {
         return super.getById(id);
@@ -39,5 +38,4 @@ public class UserDAO extends AbstractDAOImpl<User> {
     public void deleteById(long id) {
         super.deleteById(id);
     }
-
 }

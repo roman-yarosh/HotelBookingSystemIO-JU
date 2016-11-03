@@ -209,6 +209,5 @@ public class HotelDAO extends AbstractDAOImpl<Hotel> {
     public void deleteById(long id) {
         super.deleteById(id);
     }
-
 }
 

@@ -4,7 +4,6 @@ import java.util.List;
 
 public class Hotel implements HasGetIdMethod {
 
-
     private long hotelId;
     private String hotelName;
     private String hotelCity;
