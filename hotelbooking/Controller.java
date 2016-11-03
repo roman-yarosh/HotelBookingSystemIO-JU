@@ -32,11 +32,10 @@ public class Controller {
         return hotelDAO.cancelRoomReservation(user, hotelId, roomId);
     }
 
-    //city - Kiev, hotelName - Radisson, price - 200, persons - 2
-    List<Hotel> findRoom(Map<String, String> params) {
-        List<Hotel> hotelList = new ArrayList<>();
-        String city;
-        String hotelName;
+    //Example for map: city - Kiev, hotelName - Radisson, price - 200, persons - 2
+    List<Room> findRoom(Map<String, String> params) {
+        String city = null;
+        String hotelName = null;
         double price = 0;
         int persons = 0;
 
@@ -66,8 +65,7 @@ public class Controller {
                 System.err.println("NullPointerException exception in findRoom() in foreach map parameters!");
             }
         }
-
-        return null;
+        return hotelDAO.getRooms(city, hotelName, price, persons);
     }
 
     List<User> getAllUsers() {
