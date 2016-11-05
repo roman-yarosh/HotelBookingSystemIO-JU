@@ -1,8 +1,11 @@
 package hotelbooking;
 
-import java.util.*;
-import java.util.function.Predicate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
+
+import static hotelbooking.Utils.printMessage;
 
 public class HotelDAO extends AbstractDAOImpl<Hotel> {
 
@@ -174,10 +177,6 @@ public class HotelDAO extends AbstractDAOImpl<Hotel> {
             resultHotelList.add(new Hotel(hotel.getId(), hotel.getName(), hotel.getCity(), tempRooms));
         }
         return resultHotelList;
-    }
-
-    private void printMessage(String message) {
-        System.out.println("\n" + message);
     }
 
     @Override
