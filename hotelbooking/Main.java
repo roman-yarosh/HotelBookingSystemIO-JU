@@ -17,11 +17,11 @@ public class Main {
 
         controller.registerUser(user1);
         controller.registerUser(user2);
+        currentUser.setCurrentUser(user2);
 
         System.out.println("\nRegistered users:");
         controller.getAllUsers().forEach(System.out::println);
 
-        currentUser.setCurrentUser(user2);
         System.out.println("\nCurrent user:\n" + currentUser.getCurrentUser());
 
         Map<String, String> map = new HashMap<>();
