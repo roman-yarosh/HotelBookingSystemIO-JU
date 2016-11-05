@@ -3,6 +3,8 @@ package hotelbooking;
 import java.util.HashMap;
 import java.util.Map;
 
+import static hotelbooking.Utils.printMessage;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -18,11 +20,12 @@ public class Main {
         controller.registerUser(user1);
         controller.registerUser(user2);
 
+        printMessage("Registered users:");
+//        controller.getAllUsers().forEach(System.out::println);
+
         printMessage("Set user3 as current user.");
         currentUser.setCurrentUser(user3);
         if (controller.isUserRegistered()) {
-            printMessage("Registered users:");
-            controller.getAllUsers().forEach(System.out::println);
         }
 
         printMessage("Set user2 as current user.");
@@ -82,13 +85,5 @@ public class Main {
         } catch (NullPointerException e) {
             System.out.println("Found 0 hotels in Kiev.");
         }*/
-    }
-
-    public static void printMessage(String message) {
-        System.out.println("\n" + message);
-    }
-
-    public static void printErrorMessage(String message) {
-        System.err.println("\n" + message);
     }
 }
