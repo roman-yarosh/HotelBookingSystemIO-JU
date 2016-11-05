@@ -13,18 +13,12 @@ public class Main {
         Controller controller = new Controller();
         CurrentUser currentUser = CurrentUser.getInstance();
 
-        User user2 = null;
-        User user3 = null;
-
-
-/*
         User user1 = new User(1, "Ivan", "Ivanov");
         User user2 = new User(2, "Petr", "Petrov");
         User user3 = new User(3, "Stepan", "Stepanov");
 
         controller.registerUser(user1);
         controller.registerUser(user2);
-*/
 
         printMessage("Try to print list of registered users when current user is not set!");
         try {
