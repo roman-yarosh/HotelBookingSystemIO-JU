@@ -17,10 +17,22 @@ public class Main {
 
         controller.registerUser(user1);
         controller.registerUser(user2);
-        currentUser.setCurrentUser(user2);
 
-        System.out.println("\nRegistered users:");
-        controller.getAllUsers().forEach(System.out::println);
+        printMessage("Set user3 as current user.");
+        currentUser.setCurrentUser(user3);
+        if (controller.isUserRegistered()) {
+            printMessage("Registered users:");
+            controller.getAllUsers().forEach(System.out::println);
+        }
+
+        printMessage("Set user2 as current user.");
+        currentUser.setCurrentUser(user2);
+        if (controller.isUserRegistered()) {
+            printMessage("Registered users:");
+            controller.getAllUsers().forEach(System.out::println);
+        }
+
+
 
         System.out.println("\nCurrent user:\n" + currentUser.getCurrentUser());
 
@@ -70,5 +82,13 @@ public class Main {
         } catch (NullPointerException e) {
             System.out.println("Found 0 hotels in Kiev.");
         }*/
+    }
+
+    public static void printMessage(String message) {
+        System.out.println("\n" + message);
+    }
+
+    public static void printErrorMessage(String message) {
+        System.err.println("\n" + message);
     }
 }

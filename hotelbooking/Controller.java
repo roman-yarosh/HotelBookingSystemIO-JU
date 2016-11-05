@@ -3,8 +3,6 @@ package hotelbooking;
 import java.util.List;
 import java.util.Map;
 
-import static hotelbooking.Utils.printMessage;
-
 public class Controller {
 
     static UserDAO userDAO = new UserDAO();
@@ -82,7 +80,7 @@ public class Controller {
                             }
                         }
                     } catch (NullPointerException e) {
-                        System.err.println("NullPointerException exception in findRoom() in foreach map parameters!");
+                        printErrorMessage("NullPointerException exception in findRoom() in foreach map parameters!");
                     }
                 }
                 return hotelDAO.getRooms(city, hotelName, price, persons);
@@ -91,8 +89,9 @@ public class Controller {
         }
 
     public boolean isUserRegistered() {
-        boolean userRegistered = currentUser.getCurrentUser().isUserRegistered();
-        if (!userRegistered) printMessage("Current user is not registered! Please, register user is system!");
+        User localCurrentUser = currentUser.getCurrentUser();
+        boolean userRegistered = localCurrentUser.isUserRegistered();
+        if (!userRegistered) printErrorMessage("Current user is not registered! Please, register user in the system! " + localCurrentUser);
         return userRegistered;
     }
 
@@ -115,5 +114,13 @@ public class Controller {
             return hotelDAO.getById(hotelId);
         } else
             return null;
+    }
+
+    public static void printMessage(String message) {
+        System.out.println("\n" + message);
+    }
+
+    public static void printErrorMessage(String message) {
+        System.err.println("\n" + message);
     }
 }
