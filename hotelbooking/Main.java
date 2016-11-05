@@ -13,38 +13,57 @@ public class Main {
         Controller controller = new Controller();
         CurrentUser currentUser = CurrentUser.getInstance();
 
+        User user2 = null;
+        User user3 = null;
+
+
+/*
         User user1 = new User(1, "Ivan", "Ivanov");
         User user2 = new User(2, "Petr", "Petrov");
         User user3 = new User(3, "Stepan", "Stepanov");
 
         controller.registerUser(user1);
         controller.registerUser(user2);
+*/
 
-        printMessage("Registered users:");
-//        controller.getAllUsers().forEach(System.out::println);
+        printMessage("Try to print list of registered users when current user is not set!");
+        try {
+            controller.getAllUsers().forEach(System.out::println);
+        } catch (NullPointerException e) {
+            printMessage("Try/Catch in main() method from Main class: NullPointerException! Current user is not set so getAllUsers() method returns null!");
+        }
 
+        printMessage("Try to print list of registered users when current user is set to not registered user3!");
         printMessage("Set user3 as current user.");
         currentUser.setCurrentUser(user3);
-        if (controller.isUserRegistered()) {
+        try {
+            controller.getAllUsers().forEach(System.out::println);
+        } catch (NullPointerException e) {
+            printMessage("Try/Catch in main() method from Main class: NullPointerException! Current user is user3 but he is not registered so getAllUsers() method returns null!");
         }
 
+        printMessage("Try to print list of registered users when current user is set to registered user2!");
         printMessage("Set user2 as current user.");
         currentUser.setCurrentUser(user2);
-        if (controller.isUserRegistered()) {
-            printMessage("Registered users:");
+        printMessage("Registered users:");
+        try {
             controller.getAllUsers().forEach(System.out::println);
+        } catch (NullPointerException e) {
+            printMessage("Try/Catch in main() method from Main class: NullPointerException! There are no registered users so getAllUsers() method returns null!");
         }
 
 
-
-        System.out.println("\nCurrent user:\n" + currentUser.getCurrentUser());
 
         Map<String, String> map = new HashMap<>();
         map.put("persons", "2");
         map.put("price", "300");
         map.put("city", "Kiev");
         map.put("hotelName", "Radisson");
-        controller.findRoom(map).forEach(System.out::print);
+        try {
+            controller.findRoom(map).forEach(System.out::print);
+        } catch (NullPointerException e) {
+            printMessage("Try/Catch in main() method from Main class: NullPointerException! There are no registered users or current user is not set so findRoom() method returns null!");
+        }
 
         //controller.getAllHotels().forEach(System.out::println);
 

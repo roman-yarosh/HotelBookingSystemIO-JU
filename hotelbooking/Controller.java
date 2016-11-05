@@ -96,7 +96,7 @@ public class Controller {
         try {
             userRegistered = localCurrentUser.isUserRegistered();
         } catch (NullPointerException e) {
-            printMessage("NullPointerException! Current user is not set!");
+            printMessage("Try/Catch in isUserRegistered() method from the Controller class: NullPointerException! Current user is not set!");
             return userRegistered;
         }
         if (!userRegistered) printMessage("Current user is not registered! Please, register user in the system! " + localCurrentUser);
