@@ -116,11 +116,11 @@ public class Controller {
             return null;
     }
 
-    public static void printMessage(String message) {
+    public void printMessage(String message) {
         System.out.println("\n" + message);
     }
 
-    public static void printErrorMessage(String message) {
+    public void printErrorMessage(String message) {
         System.err.println("\n" + message);
     }
 }
