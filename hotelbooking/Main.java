@@ -46,6 +46,20 @@ public class Main {
             printMessage("Try/Catch in main() method from Main class: NullPointerException! There are no registered users so getAllUsers() method returns null!");
         }
 
+        try {
+            printMessage("Print all hotels");
+            controller.getAllHotels().forEach(System.out::println);
+        } catch (NullPointerException e) {
+            printMessage("Try/Catch in main() method from Main class: NullPointerException! Current user is is not registered so getAllHotels() method returns null!");
+        }
+
+//        controller.findHotelByCity("Kiev").forEach(System.out::println);
+//        controller.findHotelByCity("Odessa").forEach(System.out::println);
+//        controller.findHotelByCity("Lvov").forEach(System.out::println);
+
+        //controller.findHotelByName("Leopolis").forEach(System.out::println);
+        //controller.findHotelByName("Hyatt").forEach(System.out::println);
+        //controller.findHotelByName("Nobilis").forEach(System.out::println);
 
 
         Map<String, String> map = new HashMap<>();
@@ -82,15 +96,7 @@ public class Main {
         }
 
 
-        controller.getAllHotels().forEach(System.out::println);
-*/
-//        controller.findHotelByCity("Kiev").forEach(System.out::println);
-//        controller.findHotelByCity("Odessa").forEach(System.out::println);
-//        controller.findHotelByCity("Lvov").forEach(System.out::println);
 
-        //controller.findHotelByName("Leopolis").forEach(System.out::println);
-        //controller.findHotelByName("Hyatt").forEach(System.out::println);
-        //controller.findHotelByName("Nobilis").forEach(System.out::println);
 
 
 /*        try {

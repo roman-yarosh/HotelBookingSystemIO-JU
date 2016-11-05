@@ -20,7 +20,7 @@ public class CurrentUser {
     }
 
     public void setCurrentUser(User currentUser) {
-        System.out.println("Current user is " + currentUser);
+        System.out.println("\nCurrent user is " + currentUser);
         this.curUser = currentUser;
     }
 }
