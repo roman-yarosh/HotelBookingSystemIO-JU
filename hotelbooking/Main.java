@@ -70,23 +70,23 @@ public class Main {
 
         Map<String, String> map = new HashMap<>();
         map.put("persons", "2");
-        map.put("price", "300");
+        map.put("price", "200");
         map.put("city", "Kiev");
         map.put("hotelName", "Radisson");
         try {
-            printMessage("\nPrint all hotels by given parameters in map persons = 2, price = 300, city = 'Kiev', hotelName = 'Radisson' (controller.findRoom(map))!");
+            printMessage("\nPrint all hotels by given parameters in map persons = 2, price = 200, city = 'Kiev', hotelName = 'Radisson' (controller.findRoom(map))!");
             controller.findRoom(map).forEach(System.out::print);
         } catch (NullPointerException e) {
             printMessage("Try/Catch in main() method from Main class: NullPointerException! There are no registered users or current user is not set so findRoom() method returns null!");
         }
 
         map.clear();
-        //map.put("persons", "2");
-        map.put("price", "100");
+        //map.put("persons", "1");
+        map.put("price", "180");
         map.put("city", "Kiev");
         //map.put("hotelName", "Radisson");
         try {
-            printMessage("\nPrint all hotels by given parameters in map price = 100, city = 'Kiev' (controller.findRoom(map))!");
+            printMessage("\nPrint all hotels by given parameters in map price = 180, city = 'Kiev' (controller.findRoom(map))!");
             controller.findRoom(map).forEach(System.out::print);
         } catch (NullPointerException e) {
             printMessage("Try/Catch in main() method from Main class: NullPointerException! There are no registered users or current user is not set so findRoom() method returns null!");
