@@ -1,7 +1,6 @@
 package hotelbooking;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,23 +19,30 @@ public class HotelDAO extends AbstractDAOImpl<Hotel> {
 
     private HotelDAO() {
 
-        /*
         List<List<Room>> roomLists = new ArrayList<>();
-              int j=0;
-             while (j<6){
-            i=1;
-           List<Room> roomsHotel = new ArrayList<>();
-           while (i<=10) {
-               roomsHotel.add(new Room(i + j * 10, i % 4+1 ,( i % 4+1)*50 +100+(j%3)*30));
-          i++; }
-              System.out.println(roomsHotel);
-               roomLists.add(roomsHotel);
-           j++;
-           }
+        int i, j = 0;
+        while (j < 6) {
+            i = 1;
+            List<Room> roomsHotel = new ArrayList<>();
+            while (i <= 10) {
+                //roomsHotel.add(new Room(i + j * 10, i % 4 + 1, (i % 4 + 1) * 50 + 100 + (j % 3) * 30));
+                roomsHotel.add(new Room(i + j * 10, i % 4 + 1, (i % 4 + 1) * 50 + 100 + (j % 3) * 30));
+                i++;
+            }
+            System.out.println(roomsHotel);
+            roomLists.add(roomsHotel);
+            j++;
         }
-        */
 
-        Room room1 = new Room(1, 1, 100.0);
+        this.save(new Hotel(1, "Radisson Hotel","Kiev", roomLists.get(0)));
+        this.save(new Hotel(2, "Hyatt Regency Hotel","Kiev",roomLists.get(1)));
+        this.save(new Hotel(3, "Leopolis Hotel","Lvov",roomLists.get(2)));
+        this.save(new Hotel(4, "Nobilis Hotel","Lvov",roomLists.get(3)));
+        this.save(new Hotel(5, "Duke Hotel Odessa","Odessa",roomLists.get(4)));
+        this.save(new Hotel(6, "Bristol Hotel","Odessa",roomLists.get(5)));
+
+
+       /* Room room1 = new Room(1, 1, 100.0);
         Room room2 = new Room(2, 1, 150.0);
         Room room3 = new Room(3, 1, 200.0);
         Room room4 = new Room(4, 2, 250.0);
@@ -115,8 +121,8 @@ public class HotelDAO extends AbstractDAOImpl<Hotel> {
         this.save(new Hotel(4, "Nobilis Hotel", "Lvov", roomList4));
 
         this.save(new Hotel(5, "Duke Hotel Odessa", "Odessa", roomList5));
-        this.save(new Hotel(6, "Bristol Hotel", "Odessa", roomList6));
-    }
+        this.save(new Hotel(6, "Bristol Hotel", "Odessa", roomList6));*/
+}
 
     public List<Hotel> getByCity(String city) {
         return this.getAll().stream()
@@ -132,8 +138,8 @@ public class HotelDAO extends AbstractDAOImpl<Hotel> {
 
     public Room getRoomById(long hotelId, long roomId) {
         Hotel hotel = getById(hotelId);
-        if (hotel != null){
-            for (Room room : hotel.getHotelRooms()){
+        if (hotel != null) {
+            for (Room room : hotel.getHotelRooms()) {
                 if (room.getId() == roomId) {
                     return room;
                 }
@@ -158,15 +164,16 @@ public class HotelDAO extends AbstractDAOImpl<Hotel> {
             Room room = getRoomById(hotelId, roomId);
             if (user.equals(room.getUserReserved())) {
                 room.setUserReserved(null);
+                printMessage("Reservation removed from room with id = " + roomId);
                 return true;
             } else {
-                printMessage(user + " did not book the room in hotel '" + getById(hotelId).getName() + "'! Please, try with another user!");
+                printMessage(user + " did not reserve the room in this hotel '" + getById(hotelId).getName() + "'! Please, try with another user!");
             }
         }
         return false;
     }
 
-    private boolean checkUserHotelRoom(User user, long hotelId, long roomId){
+    private boolean checkUserHotelRoom(User user, long hotelId, long roomId) {
         if (user == null) {
             printMessage("User is not found in the system! Please, register user in the system!");
             return false;
@@ -198,7 +205,7 @@ public class HotelDAO extends AbstractDAOImpl<Hotel> {
                         ((hotelName != null && hotelName.length() > 2) ? hotel.getName().toLowerCase().contains(hotelName.toLowerCase()) : true))
                 .collect(Collectors.toList());
 
-        for (Hotel hotel : hotelList){
+        for (Hotel hotel : hotelList) {
             roomList = hotel.getHotelRooms().stream()
                     .filter(room -> ((persons > 0 ? room.getPersons() == persons : true) &&
                             (price > 0 ? room.getPrice() == price : true)))
