@@ -22,28 +22,15 @@ public class Controller {
     }
 
     public List<Hotel> findHotelByName(String name) {
-        if (isUserRegistered()) {
-            return hotelDAO.getByName(name);
-        } else {
-            return null;
-        }
+        return isUserRegistered() ? hotelDAO.getByName(name) : null;
     }
 
     public List<Hotel> findHotelByCity(String city) {
-        if (isUserRegistered()) {
-            return hotelDAO.getByCity(city);
-        } else {
-            return null;
-        }
+        return isUserRegistered() ? hotelDAO.getByCity(city) : null;
     }
 
     public boolean bookRoom(long roomId, long userId, long hotelId) {
-        if (isUserRegistered()) {
-            User user = userDAO.getById(userId);
-            return hotelDAO.bookRoom(user, hotelId, roomId);
-        } else {
-            return false;
-        }
+        return isUserRegistered() && hotelDAO.bookRoom(userDAO.getById(userId), hotelId, roomId);
     }
 
     public boolean cancelReservation(long roomId, long userId, long hotelId) {

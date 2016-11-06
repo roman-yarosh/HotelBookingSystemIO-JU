@@ -105,11 +105,6 @@ public class HotelDAO extends AbstractDAOImpl<Hotel> {
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public Hotel getById(long hotelId) {
-        return super.getById(hotelId);
-    }
-
     public Room getRoomById(long hotelId, long roomId) {
         Hotel hotel = getById(hotelId);
         if (hotel != null){
@@ -147,23 +142,22 @@ public class HotelDAO extends AbstractDAOImpl<Hotel> {
     private boolean checkUserHotelRoom(User user, long hotelId, long roomId){
         if (user == null) {
             printMessage("User is not found in the system! Please, register user in the system!");
-        } else {
-            if (!user.isUserRegistered()) {
-                printMessage("User is not registered in the system! Please, register user in the system!");
-            } else {
-                Hotel hotel = getById(hotelId);
-                if (hotel == null) {
-                    printMessage("Hotel is not found in the system by id = " + hotelId + "! Please, enter another hotel!");
-                } else {
-                    if (getRoomById(hotelId, roomId) == null) {
-                        printMessage("Room is not found in hotel '" + hotel.getName() + "' by id = " + roomId + "! Please, enter another room id!");
-                    } else {
-                        return true;
-                    }
-                }
-            }
+            return false;
         }
-        return false;
+        if (!user.isUserRegistered()) {
+            printMessage("User is not registered in the system! Please, register user in the system!");
+            return false;
+        }
+        Hotel hotel = getById(hotelId);
+        if (hotel == null) {
+            printMessage("Hotel is not found in the system by id = " + hotelId + "! Please, enter another hotel!");
+            return false;
+        }
+        if (getRoomById(hotelId, roomId) == null) {
+            printMessage("Room is not found in hotel '" + hotel.getName() + "' by id = " + roomId + "! Please, enter another room id!");
+            return false;
+        }
+        return true;
     }
 
     public List<Hotel> getRooms(String city, String hotelName, double price, int persons) {
@@ -185,36 +179,6 @@ public class HotelDAO extends AbstractDAOImpl<Hotel> {
             resultHotelList.add(new Hotel(hotel.getId(), hotel.getName(), hotel.getCity(), roomList));
         }
         return resultHotelList;
-    }
-
-    @Override
-    public List<Hotel> getAll() {
-        return super.getAll();
-    }
-
-    @Override
-    public Hotel save(Hotel hotel) {
-        return super.save(hotel);
-    }
-
-    @Override
-    public void saveAll(List<Hotel> t) {
-        super.saveAll(t);
-    }
-
-    @Override
-    public void delete(Hotel hotel) {
-        super.delete(hotel);
-    }
-
-    @Override
-    public void deleteAll(List<Hotel> t) {
-        super.deleteAll(t);
-    }
-
-    @Override
-    public void deleteById(long id) {
-        super.deleteById(id);
     }
 }
 
