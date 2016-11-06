@@ -2,23 +2,17 @@ package hotelbooking;
 
 import java.util.List;
 
-public class Hotel implements HasGetIdMethod {
+public class Hotel extends IndexEntity {
 
-    private long hotelId;
     private String hotelName;
     private String hotelCity;
     private List<Room> hotelRooms;
 
     public Hotel(long hotelId, String hotelName, String hotelCity, List<Room> hotelRooms) {
-        this.hotelId = hotelId;
+        this.setId(hotelId);
         this.hotelName = hotelName;
         this.hotelCity = hotelCity;
         this.hotelRooms = hotelRooms;
-    }
-
-    @Override
-    public long getId() {
-        return hotelId;
     }
 
     public String getName() {
@@ -36,7 +30,7 @@ public class Hotel implements HasGetIdMethod {
     @Override
     public String toString() {
         return "\nHotel{" +
-                "hotelId=" + hotelId +
+                "hotelId=" + this.getId() +
                 ", hotelName='" + hotelName + '\'' +
                 ", hotelCity='" + hotelCity + '\'' +
                 ", hotelRooms=" + hotelRooms +

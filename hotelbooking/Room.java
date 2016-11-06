@@ -1,20 +1,15 @@
 package hotelbooking;
 
-public class Room {
+public class Room extends IndexEntity {
 
-    private long roomId;
     private int persons;
     private double price;
     private User userReserved;
 
     public Room(long roomId, int persons, double price) {
-        this.roomId = roomId;
+        this.setId(roomId);
         this.persons = persons;
         this.price = price;
-    }
-
-    public long getId() {
-        return roomId;
     }
 
     public int getPersons() {
@@ -36,7 +31,7 @@ public class Room {
     @Override
     public String toString() {
         return "\nRoom{" +
-                "roomId=" + roomId +
+                "roomId=" + this.getId() +
                 ", persons=" + persons +
                 ", price=" + price +
                 ", userReserved=" + userReserved +

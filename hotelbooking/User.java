@@ -1,14 +1,13 @@
 package hotelbooking;
 
-public class User implements HasGetIdMethod {
+public class User extends IndexEntity {
 
-    private long userId;
     private String firstName;
     private String lastName;
     private boolean userRegistered;
 
     public User(long userId, String firstName, String lastName) {
-        this.userId = userId;
+        this.setId(userId);
         this.firstName = firstName;
         this.lastName = lastName;
     }
@@ -22,18 +21,13 @@ public class User implements HasGetIdMethod {
     }
 
     @Override
-    public long getId() {
-        return userId;
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
         User user = (User) o;
 
-        if (userId != user.userId) return false;
+        if (this.getId() != user.getId()) return false;
         if (userRegistered != user.userRegistered) return false;
         if (firstName != null ? !firstName.equals(user.firstName) : user.firstName != null) return false;
         return lastName != null ? lastName.equals(user.lastName) : user.lastName == null;
@@ -41,7 +35,7 @@ public class User implements HasGetIdMethod {
 
     @Override
     public int hashCode() {
-        int result = (int) (userId ^ (userId >>> 32));
+        int result = (int) (this.getId() ^ (this.getId() >>> 32));
         result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
         result = 31 * result + (userRegistered ? 1 : 0);
@@ -50,7 +44,7 @@ public class User implements HasGetIdMethod {
 
     @Override
     public String toString() {
-        return "User{" + "userId=" + userId +
+        return "User{" + "userId=" + this.getId() +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", userRegistered=" + userRegistered +

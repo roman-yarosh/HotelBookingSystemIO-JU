@@ -2,7 +2,7 @@ package hotelbooking;
 
 import java.util.List;
 
-public interface AbstractDAO<T extends HasGetIdMethod> {
+public interface AbstractDAO<T extends IndexEntity> {
 
     public T getById(long id);
 

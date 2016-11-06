@@ -3,7 +3,7 @@ package hotelbooking;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AbstractDAOImpl<T extends HasGetIdMethod> implements AbstractDAO<T> {
+public class AbstractDAOImpl<T extends IndexEntity> implements AbstractDAO<T> {
 
     private List<T> list = new ArrayList<>();
 
