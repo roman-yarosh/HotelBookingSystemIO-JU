@@ -155,8 +155,7 @@ public class HotelDAO extends AbstractDAOImpl<Hotel> {
                 if (hotel == null) {
                     printMessage("Hotel is not found in the system by id = " + hotelId + "! Please, enter another hotel!");
                 } else {
-                    Room room = getRoomById(hotelId, roomId);
-                    if (room == null) {
+                    if (getRoomById(hotelId, roomId) == null) {
                         printMessage("Room is not found in hotel '" + hotel.getName() + "' by id = " + roomId + "! Please, enter another room id!");
                     } else {
                         return true;

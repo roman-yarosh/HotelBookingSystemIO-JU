@@ -74,7 +74,7 @@ public class Main {
         map.put("city", "Kiev");
         map.put("hotelName", "Radisson");
         try {
-            printMessage("Print all hotels by given parameters in map persons = 2, price = 300, city = 'Kiev', hotelName = 'Radisson' (controller.findRoom(map))!");
+            printMessage("\nPrint all hotels by given parameters in map persons = 2, price = 300, city = 'Kiev', hotelName = 'Radisson' (controller.findRoom(map))!");
             controller.findRoom(map).forEach(System.out::print);
         } catch (NullPointerException e) {
             printMessage("Try/Catch in main() method from Main class: NullPointerException! There are no registered users or current user is not set so findRoom() method returns null!");
@@ -86,17 +86,32 @@ public class Main {
         map.put("city", "Kiev");
         //map.put("hotelName", "Radisson");
         try {
-            printMessage("Print all hotels by given parameters in map price = 100, city = 'Kiev' (controller.findRoom(map))!");
+            printMessage("\nPrint all hotels by given parameters in map price = 100, city = 'Kiev' (controller.findRoom(map))!");
             controller.findRoom(map).forEach(System.out::print);
         } catch (NullPointerException e) {
             printMessage("Try/Catch in main() method from Main class: NullPointerException! There are no registered users or current user is not set so findRoom() method returns null!");
         }
 
-        long hotelId = 6;
-        long userId = 2;
-        long roomId = 55;
+        long hotelId = 7;
+        long userId = currentUser.getCurrentUser().getId();
+        long roomId = 1;
 
-//        if (controller.bookRoom(roomId, userId, hotelId)) System.out.println(controller.getHotelById(hotelId));
+        if (controller.bookRoom(roomId, userId, hotelId)) {
+            printMessage("\nPrint hotel with reserved room by given parameters hotelId = " + hotelId + ", roomId = " + roomId + ", userId = " + userId + "\n" +
+            controller.getHotelById(hotelId).toString());
+        } else {
+            printMessage("No rooms found by given parameters hotelId = " + hotelId + ", roomId = " + roomId + ", userId = " + userId);
+        }
+
+        hotelId = 1;
+        userId = currentUser.getCurrentUser().getId();
+        roomId = 1;
+
+        if (controller.bookRoom(roomId, userId, hotelId)) {
+            printMessage("\nPrint hotel with reserved room by given parameters hotelId = " + hotelId + ", roomId = " + roomId + ", userId = " + userId + "\n" +
+                    controller.getHotelById(hotelId).toString());
+        }
+
 
         roomId = 53;
 //        if (controller.bookRoom(roomId, userId, hotelId)) System.out.println(controller.getHotelById(hotelId));

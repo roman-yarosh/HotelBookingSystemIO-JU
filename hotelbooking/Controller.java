@@ -7,8 +7,8 @@ import static hotelbooking.Utils.printMessage;
 
 public class Controller {
 
-    static UserDAO userDAO = new UserDAO();
-    static HotelDAO hotelDAO = new HotelDAO();
+    private static UserDAO userDAO = new UserDAO();
+    private static HotelDAO hotelDAO = new HotelDAO();
 
     private CurrentUser currentUser;
 
@@ -16,12 +16,12 @@ public class Controller {
         this.currentUser = CurrentUser.getInstance();
     }
 
-    User registerUser(User user) {
+    public User registerUser(User user) {
         user.setUserRegistered(true);
         return userDAO.save(user);
     }
 
-    List<Hotel> findHotelByName(String name) {
+    public List<Hotel> findHotelByName(String name) {
         if (isUserRegistered()) {
             return hotelDAO.getByName(name);
         } else {
@@ -29,7 +29,7 @@ public class Controller {
         }
     }
 
-    List<Hotel> findHotelByCity(String city) {
+    public List<Hotel> findHotelByCity(String city) {
         if (isUserRegistered()) {
             return hotelDAO.getByCity(city);
         } else {
@@ -37,7 +37,7 @@ public class Controller {
         }
     }
 
-    boolean bookRoom(long roomId, long userId, long hotelId) {
+    public boolean bookRoom(long roomId, long userId, long hotelId) {
         if (isUserRegistered()) {
             User user = userDAO.getById(userId);
             return hotelDAO.bookRoom(user, hotelId, roomId);
@@ -46,7 +46,7 @@ public class Controller {
         }
     }
 
-    boolean cancelReservation(long roomId, long userId, long hotelId) {
+    public boolean cancelReservation(long roomId, long userId, long hotelId) {
         if (isUserRegistered()) {
             User user = userDAO.getById(userId);
             return hotelDAO.cancelRoomReservation(user, hotelId, roomId);
@@ -56,7 +56,7 @@ public class Controller {
     }
 
     //Example for map: city - Kiev, hotelName - Radisson, price - 200, persons - 2
-    List<Hotel> findRoom (Map < String, String > params){
+    public List<Hotel> findRoom (Map < String, String > params){
         String city;
         String hotelName;
         double price;
@@ -96,7 +96,7 @@ public class Controller {
         return userRegistered;
     }
 
-    List<User> getAllUsers() {
+    public List<User> getAllUsers() {
         if (isUserRegistered()) {
             return userDAO.getAll();
         } else {
@@ -104,7 +104,7 @@ public class Controller {
         }
     }
 
-    List<Hotel> getAllHotels() {
+    public List<Hotel> getAllHotels() {
         if (isUserRegistered()) {
             return hotelDAO.getAll();
         } else {
@@ -112,7 +112,7 @@ public class Controller {
         }
     }
 
-    Hotel getHotelById(long hotelId) {
+    public Hotel getHotelById(long hotelId) {
         if (isUserRegistered()) {
             return hotelDAO.getById(hotelId);
         } else {

@@ -4,17 +4,17 @@ import java.util.List;
 
 public interface AbstractDAO<T extends HasGetIdMethod> {
 
-    T getById(long id);
+    public T getById(long id);
 
-    List<T> getAll();
+    public List<T> getAll();
 
-    T save(T t);
+    public T save(T t);
 
-    void saveAll(List<T> t);
+    public void saveAll(List<T> t);
 
-    void delete(T t);
+    public void delete(T t);
 
-    void deleteAll(List<T> t);
+    public void deleteAll(List<T> t);
 
-    void deleteById(long id);
+    public void deleteById(long id);
 }
