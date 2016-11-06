@@ -47,15 +47,25 @@ public class Main {
         }
 
         try {
-            printMessage("Print all hotels");
-            controller.getAllHotels().forEach(System.out::println);
+            printMessage("Print all hotels from DAO");
+ //           controller.getAllHotels().forEach(System.out::println);
         } catch (NullPointerException e) {
             printMessage("Try/Catch in main() method from Main class: NullPointerException! Current user is is not registered so getAllHotels() method returns null!");
         }
 
-//        controller.findHotelByCity("Kiev").forEach(System.out::println);
-//        controller.findHotelByCity("Odessa").forEach(System.out::println);
-//        controller.findHotelByCity("Lvov").forEach(System.out::println);
+        try {
+            printMessage("Print all hotels in Kiev city!");
+            controller.findHotelByCity("Kiev").forEach(System.out::println);
+            printMessage("Print all hotels in Odessa city!");
+            controller.findHotelByCity("Odessa").forEach(System.out::println);
+            printMessage("Print all hotels in Lvov city!");
+            controller.findHotelByCity("Lvov").forEach(System.out::println);
+        } catch (Exception e) {
+            printMessage("Try/Catch in main() method from Main class: NullPointerException! There are no registered users or current user is not set so findHotelByCity() method returns null!");
+        }
+        //controller.findHotelByCity("Kiev").forEach(System.out::println);
+
+
 
         //controller.findHotelByName("Leopolis").forEach(System.out::println);
         //controller.findHotelByName("Hyatt").forEach(System.out::println);
@@ -64,9 +74,9 @@ public class Main {
 
         Map<String, String> map = new HashMap<>();
         map.put("persons", "2");
-        map.put("price", "300");
-        map.put("city", "Kiev");
-        map.put("hotelName", "Radisson");
+        //map.put("price", "300");
+        //map.put("city", "Kiev");
+        //map.put("hotelName", "Radisson");
         try {
             controller.findRoom(map).forEach(System.out::print);
         } catch (NullPointerException e) {

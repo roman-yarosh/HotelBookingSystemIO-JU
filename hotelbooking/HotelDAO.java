@@ -160,7 +160,7 @@ public class HotelDAO extends AbstractDAOImpl<Hotel> {
     public List<Hotel> getRooms(String city, String hotelName, double price, int persons) {
 
         List<Hotel> resultHotelList = new ArrayList<>();
-        List<Room> roomList = new ArrayList<>();
+        List<Room> roomList;
         //Select hotels with given city and hotel name. If city or hotel name is null filter returns all hotels.
         // If only one parameter given another parameter is ignored by true value in ternary operator
         List<Hotel> hotelList = getAll().stream()
@@ -169,12 +169,11 @@ public class HotelDAO extends AbstractDAOImpl<Hotel> {
                 .collect(Collectors.toList());
 
         for (Hotel hotel : hotelList){
-            List<Room> tempRooms = hotel.getHotelRooms().stream()
+            roomList = hotel.getHotelRooms().stream()
                     .filter(room -> ((persons > 0 ? room.getPersons() == persons : true) &&
                             (price > 0 ? room.getPrice() == price : true)))
                     .collect(Collectors.toList());
-            roomList.addAll(tempRooms);
-            resultHotelList.add(new Hotel(hotel.getId(), hotel.getName(), hotel.getCity(), tempRooms));
+            resultHotelList.add(new Hotel(hotel.getId(), hotel.getName(), hotel.getCity(), roomList));
         }
         return resultHotelList;
     }
