@@ -29,28 +29,30 @@ public class Controller {
     }
 
     List<Hotel> findHotelByCity(String city) {
-        if (isUserRegistered())
+        if (isUserRegistered()) {
             return hotelDAO.getByCity(city);
-        else
+        } else {
             return null;
+        }
     }
 
     boolean bookRoom(long roomId, long userId, long hotelId) {
         if (isUserRegistered()) {
             User user = userDAO.getById(userId);
             return hotelDAO.bookRoom(user, hotelId, roomId);
-        } else
+        } else {
             return false;
+        }
     }
 
     boolean cancelReservation(long roomId, long userId, long hotelId) {
         if (isUserRegistered()) {
             User user = userDAO.getById(userId);
             return hotelDAO.cancelRoomReservation(user, hotelId, roomId);
-        } else
+        } else {
             return false;
+        }
     }
-
         //Example for map: city - Kiev, hotelName - Radisson, price - 200, persons - 2
         List<Hotel> findRoom (Map < String, String > params){
             String city = null;
@@ -58,36 +60,37 @@ public class Controller {
             double price = 0;
             int persons = 0;
 
-            if (isUserRegistered()) {
-                for (Map.Entry<String, String> paramsEntry : params.entrySet()) {
-                    try {
-                        if (paramsEntry.getKey() != null && paramsEntry.getValue() != null && paramsEntry.getKey().toLowerCase().contains("city")) {
-                            city = paramsEntry.getValue();
-                        }
-                        if (paramsEntry.getKey() != null && paramsEntry.getValue() != null && paramsEntry.getKey().toLowerCase().contains("name")) {
-                            hotelName = paramsEntry.getValue();
-                        }
-                        if (paramsEntry.getKey() != null && paramsEntry.getValue() != null && paramsEntry.getKey().toLowerCase().contains("price")) {
-                            try {
-                                price = Double.valueOf(paramsEntry.getValue());
-                            } catch (NumberFormatException e) {
-                                price = 0;
-                            }
-                        }
-                        if (paramsEntry.getKey() != null && paramsEntry.getValue() != null && paramsEntry.getKey().toLowerCase().contains("person")) {
-                            try {
-                                persons = Integer.parseInt(paramsEntry.getValue());
-                            } catch (NumberFormatException e) {
-                                persons = 0;
-                            }
-                        }
-                    } catch (NullPointerException e) {
-                        printMessage("NullPointerException exception in findRoom() in foreach map parameters!");
-                    }
-                }
-                return hotelDAO.getRooms(city, hotelName, price, persons);
-            } else
+            if (!isUserRegistered()) {
                 return null;
+            }
+
+            for (Map.Entry<String, String> paramsEntry : params.entrySet()) {
+                try {
+                    if (paramsEntry.getKey() != null && paramsEntry.getValue() != null && paramsEntry.getKey().toLowerCase().contains("city")) {
+                        city = paramsEntry.getValue();
+                    }
+                    if (paramsEntry.getKey() != null && paramsEntry.getValue() != null && paramsEntry.getKey().toLowerCase().contains("name")) {
+                        hotelName = paramsEntry.getValue();
+                    }
+                    if (paramsEntry.getKey() != null && paramsEntry.getValue() != null && paramsEntry.getKey().toLowerCase().contains("price")) {
+                        try {
+                            price = Double.valueOf(paramsEntry.getValue());
+                        } catch (NumberFormatException e) {
+                            price = 0;
+                        }
+                    }
+                    if (paramsEntry.getKey() != null && paramsEntry.getValue() != null && paramsEntry.getKey().toLowerCase().contains("person")) {
+                        try {
+                            persons = Integer.parseInt(paramsEntry.getValue());
+                        } catch (NumberFormatException e) {
+                            persons = 0;
+                        }
+                    }
+                } catch (NullPointerException e) {
+                    printMessage("NullPointerException exception in findRoom() in foreach map parameters!");
+                }
+            }
+            return hotelDAO.getRooms(city, hotelName, price, persons);
         }
 
     public boolean isUserRegistered() {
