@@ -74,7 +74,7 @@ public class Main {
         map.put("city", "Kiev");
         map.put("hotelName", "Radisson");
         try {
-            printMessage("\nPrint all hotels by given parameters in map persons = 2, price = 200, city = 'Kiev', hotelName = 'Radisson' (controller.findRoom(map))!");
+            printMessage("Print all hotels by given parameters in map persons = 2, price = 200, city = 'Kiev', hotelName = 'Radisson' (controller.findRoom(map))!");
             controller.findRoom(map).forEach(System.out::print);
         } catch (NullPointerException e) {
             printMessage("Try/Catch in main() method from Main class: NullPointerException! There are no registered users or current user is not set so findRoom() method returns null!");
@@ -97,10 +97,17 @@ public class Main {
         long roomId = 1;
 
         if (controller.bookRoom(roomId, userId, hotelId)) {
-            printMessage("\nPrint hotel with reserved room by given parameters hotelId = " + hotelId + ", roomId = " + roomId + ", userId = " + userId + "\n" +
+            printMessage("Print hotel with reserved room by given parameters hotelId = " + hotelId + ", roomId = " + roomId + ", userId = " + userId + "\n" +
             controller.getHotelById(hotelId).toString());
         } else {
-            printMessage("No rooms found by given parameters hotelId = " + hotelId + ", roomId = " + roomId + ", userId = " + userId);
+            printMessage("controller.bookRoom(roomId, userId, hotelId): No rooms found by given parameters hotelId = " + hotelId + ", roomId = " + roomId + ", userId = " + userId);
+        }
+
+        if (controller.cancelReservation(roomId, userId, hotelId)) {
+            printMessage("Print hotel with canceled reservation for room by given parameters hotelId = " + hotelId + ", roomId = " + roomId + ", userId = " + userId + "\n" +
+                    controller.getHotelById(hotelId).toString());
+        } else {
+            printMessage("controller.cancelReservation(roomId, userId, hotelId): No rooms found by given parameters hotelId = " + hotelId + ", roomId = " + roomId + ", userId = " + userId);
         }
 
         hotelId = 1;
@@ -108,35 +115,18 @@ public class Main {
         roomId = 1;
 
         if (controller.bookRoom(roomId, userId, hotelId)) {
-            printMessage("\nPrint hotel with reserved room by given parameters hotelId = " + hotelId + ", roomId = " + roomId + ", userId = " + userId + "\n" +
+            printMessage("Print hotel with reserved room by given parameters hotelId = " + hotelId + ", roomId = " + roomId + ", userId = " + userId + "\n" +
                     controller.getHotelById(hotelId).toString());
+        } else {
+            printMessage("controller.bookRoom(roomId, userId, hotelId): No rooms found by given parameters hotelId = " + hotelId + ", roomId = " + roomId + ", userId = " + userId);
         }
 
-
-        roomId = 53;
-//        if (controller.bookRoom(roomId, userId, hotelId)) System.out.println(controller.getHotelById(hotelId));
-
-        userId = 2;
-        roomId = 53;
-//        if (controller.cancelReservation(roomId, userId, hotelId)) System.out.println(controller.getHotelById(hotelId));
-
-     /*   hotelId = 150;
-        try {
-            controller.getHotelById(hotelId).getHotelRooms().get(2).setUserReserved(user2);
-        } catch (NullPointerException e) {
-            System.out.println("No Hotel with id = " + hotelId + "!");;
+        if (controller.cancelReservation(roomId, userId, hotelId)) {
+            printMessage("Print hotel with canceled reservation for room by given parameters hotelId = " + hotelId + ", roomId = " + roomId + ", userId = " + userId + "\n" +
+                    controller.getHotelById(hotelId).toString());
+        } else {
+            printMessage("controller.cancelReservation(roomId, userId, hotelId): No rooms found by given parameters hotelId = " + hotelId + ", roomId = " + roomId + ", userId = " + userId);
         }
-
-
-
-
-
-/*        try {
-            controller.findHotelByCity("Kiev").forEach(System.out::println);
-        } catch (NullPointerException e) {
-            System.out.println("Found 0 hotels in Kiev.");
-        }*/
-
 
         /*System output:
         Hotel Online Booking System!
@@ -173,60 +163,172 @@ public class Main {
 
         Print all hotels from DAO (controller.getAllHotels())
 
+        Hotel{hotelId=1, hotelName='Radisson Hotel', hotelCity='Kiev', hotelRooms=[
+        Room{roomId=1, persons=2, price=200.0, userReserved=null},
+        Room{roomId=2, persons=3, price=250.0, userReserved=null},
+        Room{roomId=3, persons=4, price=300.0, userReserved=null},
+        Room{roomId=4, persons=1, price=150.0, userReserved=null},
+        Room{roomId=5, persons=2, price=200.0, userReserved=null},
+        Room{roomId=6, persons=3, price=250.0, userReserved=null},
+        Room{roomId=7, persons=4, price=300.0, userReserved=null},
+        Room{roomId=8, persons=1, price=150.0, userReserved=null},
+        Room{roomId=9, persons=2, price=200.0, userReserved=null},
+        Room{roomId=10, persons=3, price=250.0, userReserved=null}]}
+
+        Hotel{hotelId=2, hotelName='Hyatt Regency Hotel', hotelCity='Kiev', hotelRooms=[
+        Room{roomId=11, persons=2, price=230.0, userReserved=null},
+        Room{roomId=12, persons=3, price=280.0, userReserved=null},
+        Room{roomId=13, persons=4, price=330.0, userReserved=null},
+        Room{roomId=14, persons=1, price=180.0, userReserved=null},
+        Room{roomId=15, persons=2, price=230.0, userReserved=null},
+        Room{roomId=16, persons=3, price=280.0, userReserved=null},
+        Room{roomId=17, persons=4, price=330.0, userReserved=null},
+        Room{roomId=18, persons=1, price=180.0, userReserved=null},
+        Room{roomId=19, persons=2, price=230.0, userReserved=null},
+        Room{roomId=20, persons=3, price=280.0, userReserved=null}]}
+
+        Hotel{hotelId=3, hotelName='Leopolis Hotel', hotelCity='Lvov', hotelRooms=[
+        Room{roomId=21, persons=2, price=260.0, userReserved=null},
+        Room{roomId=22, persons=3, price=310.0, userReserved=null},
+        Room{roomId=23, persons=4, price=360.0, userReserved=null},
+        Room{roomId=24, persons=1, price=210.0, userReserved=null},
+        Room{roomId=25, persons=2, price=260.0, userReserved=null},
+        Room{roomId=26, persons=3, price=310.0, userReserved=null},
+        Room{roomId=27, persons=4, price=360.0, userReserved=null},
+        Room{roomId=28, persons=1, price=210.0, userReserved=null},
+        Room{roomId=29, persons=2, price=260.0, userReserved=null},
+        Room{roomId=30, persons=3, price=310.0, userReserved=null}]}
+
+        Hotel{hotelId=4, hotelName='Nobilis Hotel', hotelCity='Lvov', hotelRooms=[
+        Room{roomId=31, persons=2, price=200.0, userReserved=null},
+        Room{roomId=32, persons=3, price=250.0, userReserved=null},
+        Room{roomId=33, persons=4, price=300.0, userReserved=null},
+        Room{roomId=34, persons=1, price=150.0, userReserved=null},
+        Room{roomId=35, persons=2, price=200.0, userReserved=null},
+        Room{roomId=36, persons=3, price=250.0, userReserved=null},
+        Room{roomId=37, persons=4, price=300.0, userReserved=null},
+        Room{roomId=38, persons=1, price=150.0, userReserved=null},
+        Room{roomId=39, persons=2, price=200.0, userReserved=null},
+        Room{roomId=40, persons=3, price=250.0, userReserved=null}]}
+
+        Hotel{hotelId=5, hotelName='Duke Hotel Odessa', hotelCity='Odessa', hotelRooms=[
+        Room{roomId=41, persons=2, price=230.0, userReserved=null},
+        Room{roomId=42, persons=3, price=280.0, userReserved=null},
+        Room{roomId=43, persons=4, price=330.0, userReserved=null},
+        Room{roomId=44, persons=1, price=180.0, userReserved=null},
+        Room{roomId=45, persons=2, price=230.0, userReserved=null},
+        Room{roomId=46, persons=3, price=280.0, userReserved=null},
+        Room{roomId=47, persons=4, price=330.0, userReserved=null},
+        Room{roomId=48, persons=1, price=180.0, userReserved=null},
+        Room{roomId=49, persons=2, price=230.0, userReserved=null},
+        Room{roomId=50, persons=3, price=280.0, userReserved=null}]}
+
+        Hotel{hotelId=6, hotelName='Bristol Hotel', hotelCity='Odessa', hotelRooms=[
+        Room{roomId=51, persons=2, price=260.0, userReserved=null},
+        Room{roomId=52, persons=3, price=310.0, userReserved=null},
+        Room{roomId=53, persons=4, price=360.0, userReserved=null},
+        Room{roomId=54, persons=1, price=210.0, userReserved=null},
+        Room{roomId=55, persons=2, price=260.0, userReserved=null},
+        Room{roomId=56, persons=3, price=310.0, userReserved=null},
+        Room{roomId=57, persons=4, price=360.0, userReserved=null},
+        Room{roomId=58, persons=1, price=210.0, userReserved=null},
+        Room{roomId=59, persons=2, price=260.0, userReserved=null},
+        Room{roomId=60, persons=3, price=310.0, userReserved=null}]}
+
         Print all hotels in Kiev city (controller.findHotelByCity("Kiev"))!
 
         Hotel{hotelId=1, hotelName='Radisson Hotel', hotelCity='Kiev', hotelRooms=[
-        Room{roomId=1, persons=1, price=100.0, userReserved=null},
-        Room{roomId=2, persons=1, price=150.0, userReserved=null},
-        Room{roomId=3, persons=1, price=200.0, userReserved=null},
-        Room{roomId=4, persons=2, price=250.0, userReserved=null},
-        Room{roomId=5, persons=2, price=300.0, userReserved=null},
-        Room{roomId=6, persons=2, price=350.0, userReserved=null},
-        Room{roomId=7, persons=3, price=400.0, userReserved=null},
-        Room{roomId=8, persons=3, price=450.0, userReserved=null},
-        Room{roomId=9, persons=3, price=500.0, userReserved=null},
-        Room{roomId=10, persons=3, price=550.0, userReserved=null}]}
+        Room{roomId=1, persons=2, price=200.0, userReserved=null},
+        Room{roomId=2, persons=3, price=250.0, userReserved=null},
+        Room{roomId=3, persons=4, price=300.0, userReserved=null},
+        Room{roomId=4, persons=1, price=150.0, userReserved=null},
+        Room{roomId=5, persons=2, price=200.0, userReserved=null},
+        Room{roomId=6, persons=3, price=250.0, userReserved=null},
+        Room{roomId=7, persons=4, price=300.0, userReserved=null},
+        Room{roomId=8, persons=1, price=150.0, userReserved=null},
+        Room{roomId=9, persons=2, price=200.0, userReserved=null},
+        Room{roomId=10, persons=3, price=250.0, userReserved=null}]}
 
         Hotel{hotelId=2, hotelName='Hyatt Regency Hotel', hotelCity='Kiev', hotelRooms=[
-        Room{roomId=11, persons=1, price=100.0, userReserved=null},
-        Room{roomId=12, persons=1, price=150.0, userReserved=null},
-        Room{roomId=13, persons=1, price=200.0, userReserved=null},
-        Room{roomId=14, persons=2, price=250.0, userReserved=null},
-        Room{roomId=15, persons=2, price=300.0, userReserved=null},
-        Room{roomId=16, persons=2, price=350.0, userReserved=null},
-        Room{roomId=17, persons=3, price=400.0, userReserved=null},
-        Room{roomId=18, persons=3, price=450.0, userReserved=null},
-        Room{roomId=19, persons=3, price=500.0, userReserved=null},
-        Room{roomId=20, persons=3, price=550.0, userReserved=null}]}
+        Room{roomId=11, persons=2, price=230.0, userReserved=null},
+        Room{roomId=12, persons=3, price=280.0, userReserved=null},
+        Room{roomId=13, persons=4, price=330.0, userReserved=null},
+        Room{roomId=14, persons=1, price=180.0, userReserved=null},
+        Room{roomId=15, persons=2, price=230.0, userReserved=null},
+        Room{roomId=16, persons=3, price=280.0, userReserved=null},
+        Room{roomId=17, persons=4, price=330.0, userReserved=null},
+        Room{roomId=18, persons=1, price=180.0, userReserved=null},
+        Room{roomId=19, persons=2, price=230.0, userReserved=null},
+        Room{roomId=20, persons=3, price=280.0, userReserved=null}]}
 
         Print all hotels in Nikolaev city (controller.findHotelByCity("Nikolaev"))!
 
         Print all hotels by hotel name Bristol (controller.findHotelByName("Bristol"))!
 
         Hotel{hotelId=6, hotelName='Bristol Hotel', hotelCity='Odessa', hotelRooms=[
-        Room{roomId=51, persons=1, price=100.0, userReserved=null},
-        Room{roomId=52, persons=1, price=150.0, userReserved=null},
-        Room{roomId=53, persons=1, price=200.0, userReserved=null},
-        Room{roomId=54, persons=2, price=250.0, userReserved=null},
-        Room{roomId=55, persons=2, price=300.0, userReserved=null},
-        Room{roomId=56, persons=2, price=350.0, userReserved=null},
-        Room{roomId=57, persons=3, price=400.0, userReserved=null},
-        Room{roomId=58, persons=3, price=450.0, userReserved=null},
-        Room{roomId=59, persons=3, price=500.0, userReserved=null},
-        Room{roomId=60, persons=3, price=550.0, userReserved=null}]}
+        Room{roomId=51, persons=2, price=260.0, userReserved=null},
+        Room{roomId=52, persons=3, price=310.0, userReserved=null},
+        Room{roomId=53, persons=4, price=360.0, userReserved=null},
+        Room{roomId=54, persons=1, price=210.0, userReserved=null},
+        Room{roomId=55, persons=2, price=260.0, userReserved=null},
+        Room{roomId=56, persons=3, price=310.0, userReserved=null},
+        Room{roomId=57, persons=4, price=360.0, userReserved=null},
+        Room{roomId=58, persons=1, price=210.0, userReserved=null},
+        Room{roomId=59, persons=2, price=260.0, userReserved=null},
+        Room{roomId=60, persons=3, price=310.0, userReserved=null}]}
 
         Print all hotels by hotel name Hilton (controller.findHotelByName("Hilton"))!
 
-        Print all hotels by given parameters in map persons = 2, price = 300, city = 'Kiev', hotelName = 'Radisson' (controller.findRoom(map))!
+        Print all hotels by given parameters in map persons = 2, price = 200, city = 'Kiev', hotelName = 'Radisson' (controller.findRoom(map))!
 
         Hotel{hotelId=1, hotelName='Radisson Hotel', hotelCity='Kiev', hotelRooms=[
-        Room{roomId=5, persons=2, price=300.0, userReserved=null}]}
-        Print all hotels by given parameters in map price = 100, city = 'Kiev' (controller.findRoom(map))!
+        Room{roomId=1, persons=2, price=200.0, userReserved=null},
+        Room{roomId=5, persons=2, price=200.0, userReserved=null},
+        Room{roomId=9, persons=2, price=200.0, userReserved=null}]}
 
-        Hotel{hotelId=1, hotelName='Radisson Hotel', hotelCity='Kiev', hotelRooms=[
-        Room{roomId=1, persons=1, price=100.0, userReserved=null}]}
+        Print all hotels by given parameters in map price = 180, city = 'Kiev' (controller.findRoom(map))!
+
+        Hotel{hotelId=1, hotelName='Radisson Hotel', hotelCity='Kiev', hotelRooms=[]}
         Hotel{hotelId=2, hotelName='Hyatt Regency Hotel', hotelCity='Kiev', hotelRooms=[
-        Room{roomId=11, persons=1, price=100.0, userReserved=null}]}
+        Room{roomId=14, persons=1, price=180.0, userReserved=null},
+        Room{roomId=18, persons=1, price=180.0, userReserved=null}]}
+        Hotel is not found in the system by id = 7! Please, enter another hotel!
+
+        controller.bookRoom(roomId, userId, hotelId): No rooms found by given parameters hotelId = 7, roomId = 1, userId = 2
+
+        Hotel is not found in the system by id = 7! Please, enter another hotel!
+
+        controller.cancelReservation(roomId, userId, hotelId): No rooms found by given parameters hotelId = 7, roomId = 1, userId = 2
+
+        Print hotel with reserved room by given parameters hotelId = 1, roomId = 1, userId = 2
+
+        Hotel{hotelId=1, hotelName='Radisson Hotel', hotelCity='Kiev', hotelRooms=[
+        Room{roomId=1, persons=2, price=200.0, userReserved=User{userId=2, firstName='Petr', lastName='Petrov', userRegistered=true}},
+        Room{roomId=2, persons=3, price=250.0, userReserved=null},
+        Room{roomId=3, persons=4, price=300.0, userReserved=null},
+        Room{roomId=4, persons=1, price=150.0, userReserved=null},
+        Room{roomId=5, persons=2, price=200.0, userReserved=null},
+        Room{roomId=6, persons=3, price=250.0, userReserved=null},
+        Room{roomId=7, persons=4, price=300.0, userReserved=null},
+        Room{roomId=8, persons=1, price=150.0, userReserved=null},
+        Room{roomId=9, persons=2, price=200.0, userReserved=null},
+        Room{roomId=10, persons=3, price=250.0, userReserved=null}]}
+
+        Reservation removed from room with id = 1
+
+        Print hotel with canceled reservation for room by given parameters hotelId = 1, roomId = 1, userId = 2
+
+        Hotel{hotelId=1, hotelName='Radisson Hotel', hotelCity='Kiev', hotelRooms=[
+        Room{roomId=1, persons=2, price=200.0, userReserved=null},
+        Room{roomId=2, persons=3, price=250.0, userReserved=null},
+        Room{roomId=3, persons=4, price=300.0, userReserved=null},
+        Room{roomId=4, persons=1, price=150.0, userReserved=null},
+        Room{roomId=5, persons=2, price=200.0, userReserved=null},
+        Room{roomId=6, persons=3, price=250.0, userReserved=null},
+        Room{roomId=7, persons=4, price=300.0, userReserved=null},
+        Room{roomId=8, persons=1, price=150.0, userReserved=null},
+        Room{roomId=9, persons=2, price=200.0, userReserved=null},
+        Room{roomId=10, persons=3, price=250.0, userReserved=null}]}
          */
     }
 }
