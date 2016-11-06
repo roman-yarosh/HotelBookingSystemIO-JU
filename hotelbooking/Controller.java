@@ -7,8 +7,8 @@ import static hotelbooking.Utils.printMessage;
 
 public class Controller {
 
-    private static UserDAO userDAO = new UserDAO();
-    private static HotelDAO hotelDAO = new HotelDAO();
+    private UserDAO userDAO = UserDAO.getInstance();
+    private HotelDAO hotelDAO = HotelDAO.getInstance();
 
     private CurrentUser currentUser;
 
@@ -34,12 +34,7 @@ public class Controller {
     }
 
     public boolean cancelReservation(long roomId, long userId, long hotelId) {
-        if (isUserRegistered()) {
-            User user = userDAO.getById(userId);
-            return hotelDAO.cancelRoomReservation(user, hotelId, roomId);
-        } else {
-            return false;
-        }
+        return isUserRegistered() && hotelDAO.cancelRoomReservation(userDAO.getById(userId), hotelId, roomId);
     }
 
     //Example for map: city - Kiev, hotelName - Radisson, price - 200, persons - 2
@@ -84,26 +79,14 @@ public class Controller {
     }
 
     public List<User> getAllUsers() {
-        if (isUserRegistered()) {
-            return userDAO.getAll();
-        } else {
-            return null;
-        }
+        return isUserRegistered() ? userDAO.getAll() : null;
     }
 
     public List<Hotel> getAllHotels() {
-        if (isUserRegistered()) {
-            return hotelDAO.getAll();
-        } else {
-            return null;
-        }
+        return isUserRegistered() ? hotelDAO.getAll() : null;
     }
 
     public Hotel getHotelById(long hotelId) {
-        if (isUserRegistered()) {
-            return hotelDAO.getById(hotelId);
-        } else {
-            return null;
-        }
+        return isUserRegistered() ? hotelDAO.getById(hotelId) : null;
     }
 }

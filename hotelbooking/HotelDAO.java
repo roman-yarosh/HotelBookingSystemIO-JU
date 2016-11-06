@@ -9,7 +9,32 @@ import static hotelbooking.Utils.printMessage;
 
 public class HotelDAO extends AbstractDAOImpl<Hotel> {
 
-    public HotelDAO() {
+    private static HotelDAO instance;
+
+    public static HotelDAO getInstance() {
+        if (instance == null) {
+            instance = new HotelDAO();
+        }
+        return instance;
+    }
+
+    private HotelDAO() {
+
+        /*
+        List<List<Room>> roomLists = new ArrayList<>();
+              int j=0;
+             while (j<6){
+            i=1;
+           List<Room> roomsHotel = new ArrayList<>();
+           while (i<=10) {
+               roomsHotel.add(new Room(i + j * 10, i % 4+1 ,( i % 4+1)*50 +100+(j%3)*30));
+          i++; }
+              System.out.println(roomsHotel);
+               roomLists.add(roomsHotel);
+           j++;
+           }
+        }
+        */
 
         Room room1 = new Room(1, 1, 100.0);
         Room room2 = new Room(2, 1, 150.0);
@@ -113,7 +138,9 @@ public class HotelDAO extends AbstractDAOImpl<Hotel> {
                     return room;
                 }
             }
-        } else printMessage("Hotel is not found in the system by id = " + hotelId + "! Please, enter another hotel!");
+        } else {
+            printMessage("Hotel is not found in the system by id = " + hotelId + "! Please, enter another hotel!");
+        }
         return null;
     }
 

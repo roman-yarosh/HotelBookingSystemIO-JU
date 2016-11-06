@@ -50,7 +50,7 @@ public class Main {
 
         try {
             printMessage("Print all hotels from DAO (controller.getAllHotels())");
- //           controller.getAllHotels().forEach(System.out::println);
+            controller.getAllHotels().forEach(System.out::println);
         } catch (NullPointerException e) {
             printMessage("Try/Catch in main() method from Main class: NullPointerException! Current user is is not registered so getAllHotels() method returns null!");
         }
