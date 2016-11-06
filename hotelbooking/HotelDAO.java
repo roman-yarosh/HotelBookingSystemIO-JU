@@ -137,23 +137,33 @@ public class HotelDAO extends AbstractDAOImpl<Hotel> {
             if (user.equals(room.getUserReserved())) {
                 room.setUserReserved(null);
                 return true;
-            } else printMessage(user + " did not book the room in hotel '" + getById(hotelId).getName() + "'! Please, try with another user!");
+            } else {
+                printMessage(user + " did not book the room in hotel '" + getById(hotelId).getName() + "'! Please, try with another user!");
+            }
         }
         return false;
     }
 
     private boolean checkUserHotelRoom(User user, long hotelId, long roomId){
-        if (user != null) {
-            if (user.isUserRegistered()) {
+        if (user == null) {
+            printMessage("User is not found in the system! Please, register user in the system!");
+        } else {
+            if (!user.isUserRegistered()) {
+                printMessage("User is not registered in the system! Please, register user in the system!");
+            } else {
                 Hotel hotel = getById(hotelId);
-                if (hotel != null) {
+                if (hotel == null) {
+                    printMessage("Hotel is not found in the system by id = " + hotelId + "! Please, enter another hotel!");
+                } else {
                     Room room = getRoomById(hotelId, roomId);
-                    if (room != null) {
+                    if (room == null) {
+                        printMessage("Room is not found in hotel '" + hotel.getName() + "' by id = " + roomId + "! Please, enter another room id!");
+                    } else {
                         return true;
-                    } else printMessage("Room is not found in hotel '" + hotel.getName() + "' by id = " + roomId + "! Please, enter another room id!");
-                } else printMessage("Hotel is not found in the system by id = " + hotelId + "! Please, enter another hotel!");
-            } else printMessage("User is not registered in the system! Please, register user in the system!");
-        } else printMessage("User is not found in the system! Please, register user in the system!");
+                    }
+                }
+            }
+        }
         return false;
     }
 

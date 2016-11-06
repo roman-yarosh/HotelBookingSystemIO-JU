@@ -90,28 +90,33 @@ public class Controller {
             printMessage("Try/Catch in isUserRegistered() method from the Controller class: NullPointerException! Current user is not set!");
             return userRegistered;
         }
-        if (!userRegistered) printMessage("Current user is not registered! Please, register user in the system! " + localCurrentUser);
+        if (!userRegistered) {
+            printMessage("Current user is not registered! Please, register user in the system! " + localCurrentUser);
+        }
         return userRegistered;
     }
 
     List<User> getAllUsers() {
         if (isUserRegistered()) {
             return userDAO.getAll();
-        } else
+        } else {
             return null;
+        }
     }
 
     List<Hotel> getAllHotels() {
         if (isUserRegistered()) {
             return hotelDAO.getAll();
-        } else
+        } else {
             return null;
+        }
     }
 
     Hotel getHotelById(long hotelId) {
         if (isUserRegistered()) {
             return hotelDAO.getById(hotelId);
-        } else
+        } else {
             return null;
+        }
     }
 }
