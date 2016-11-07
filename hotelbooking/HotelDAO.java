@@ -120,7 +120,8 @@ public class HotelDAO extends AbstractDAOImpl<Hotel> {
         Map<Hotel, List<Room>> resultHotelMap = getHotelMap(city, hotelName);
 
         for (Map.Entry<Hotel, List<Room>> entry : resultHotelMap.entrySet()) {
-            entry.getValue().addAll(entry.getKey().getHotelRooms().stream()
+            entry.getValue().addAll(
+                    entry.getKey().getHotelRooms().stream()
                     .filter(room -> ((persons > 0 ? room.getPersons() == persons : true) &&
                                      (price > 0 ? room.getPrice() == price : true)))
                     .sorted((room1, room2) -> Double.compare(room1.getPrice(), room2.getPrice()))
