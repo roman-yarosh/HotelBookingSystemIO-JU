@@ -88,7 +88,7 @@ public class Main {
         map.put("city", "Kiev");
         //map.put("hotelName", "Radisson");
         try {
-            printMessage("\nPrint all hotels by given parameters in map price = 180, city = 'Kiev' (controller.findRoom(map))!");
+            printMessage("Print all hotels by given parameters in map price = 180, city = 'Kiev' (controller.findRoom(map))!");
             controller.findRoom(map).forEach((hotel, rooms) -> printMessage(hotel.hotelToString() + rooms));
         } catch (NullPointerException e) {
             printMessage("Try/Catch in main() method from Main class: NullPointerException! There are no registered users or current user is not set so findRoom() method returns null!");
@@ -98,9 +98,9 @@ public class Main {
         long userId = currentUser.getCurrentUser().getId();
         long roomId = 1;
 
+        printMessage("Try to reserve room and print hotel with reserved room by given parameters hotelId = " + hotelId + ", roomId = " + roomId + ", userId = " + userId);
         if (controller.bookRoom(roomId, userId, hotelId)) {
-            printMessage("Print hotel with reserved room by given parameters hotelId = " + hotelId + ", roomId = " + roomId + ", userId = " + userId + "\n" +
-            controller.getHotelById(hotelId).toString());
+            printMessage(controller.getHotelById(hotelId).toString());
         } else {
             printMessage("controller.bookRoom(roomId, userId, hotelId): No rooms found by given parameters hotelId = " + hotelId + ", roomId = " + roomId + ", userId = " + userId);
         }
@@ -116,9 +116,9 @@ public class Main {
         userId = currentUser.getCurrentUser().getId();
         roomId = 1;
 
+        printMessage("Try to reserve room and print hotel with reserved room by given parameters hotelId = " + hotelId + ", roomId = " + roomId + ", userId = " + userId);
         if (controller.bookRoom(roomId, userId, hotelId)) {
-            printMessage("Print hotel with reserved room by given parameters hotelId = " + hotelId + ", roomId = " + roomId + ", userId = " + userId + "\n" +
-                    controller.getHotelById(hotelId).toString());
+            printMessage(controller.getHotelById(hotelId).toString());
         } else {
             printMessage("controller.bookRoom(roomId, userId, hotelId): No rooms found by given parameters hotelId = " + hotelId + ", roomId = " + roomId + ", userId = " + userId);
         }
@@ -288,12 +288,13 @@ public class Main {
         Room{roomId=5, persons=2, price=200.0, userReserved=null},
         Room{roomId=9, persons=2, price=200.0, userReserved=null}]
 
-
         Print all hotels by given parameters in map price = 180, city = 'Kiev' (controller.findRoom(map))!
 
         Hotel{hotelId=2, hotelName='Hyatt Regency Hotel', hotelCity='Kiev}[
         Room{roomId=14, persons=1, price=180.0, userReserved=null},
         Room{roomId=18, persons=1, price=180.0, userReserved=null}]
+
+        Try to reserve room and print hotel with reserved room by given parameters hotelId = 7, roomId = 1, userId = 2
 
         Hotel is not found in the system by id = 7! Please, enter another hotel!
 
@@ -303,7 +304,8 @@ public class Main {
 
         controller.cancelReservation(roomId, userId, hotelId): No rooms found by given parameters hotelId = 7, roomId = 1, userId = 2
 
-        Print hotel with reserved room by given parameters hotelId = 1, roomId = 1, userId = 2
+        Try to reserve room and print hotel with reserved room by given parameters hotelId = 1, roomId = 1, userId = 2
+
 
         Hotel{hotelId=1, hotelName='Radisson Hotel', hotelCity='Kiev', hotelRooms=[
         Room{roomId=1, persons=2, price=200.0, userReserved=User{userId=2, firstName='Petr', lastName='Petrov', userRegistered=true}},
@@ -331,6 +333,7 @@ public class Main {
         Room{roomId=7, persons=4, price=300.0, userReserved=null},
         Room{roomId=8, persons=1, price=150.0, userReserved=null},
         Room{roomId=9, persons=2, price=200.0, userReserved=null},
-        Room{roomId=10, persons=3, price=250.0, userReserved=null}]}         */
+        Room{roomId=10, persons=3, price=250.0, userReserved=null}]}
+        */
     }
 }
