@@ -38,7 +38,7 @@ public class Controller {
     }
 
     //Example for map: city - Kiev, hotelName - Radisson, price - 200, persons - 2
-    public List<Hotel> findRoom (Map < String, String > params){
+    public Map<Hotel, List<Room>> findRoom (Map<String, String> params){
         String city;
         String hotelName;
         double price;
@@ -63,7 +63,7 @@ public class Controller {
         return hotelDAO.getRooms(city, hotelName, price, persons);
     }
 
-    public boolean isUserRegistered() {
+    private boolean isUserRegistered() {
         User localCurrentUser = currentUser.getCurrentUser();
         boolean userRegistered = false;
         try {
