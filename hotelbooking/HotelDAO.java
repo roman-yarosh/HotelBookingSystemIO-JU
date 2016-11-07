@@ -39,7 +39,7 @@ public class HotelDAO extends AbstractDAOImpl<Hotel> {
         if (!writeToFile(hotelList)) {
             printMessage("Error writing hotelList to file!");
         };
-        saveAll(readFromFile("hotels.ser"));
+        this.saveAll(readFromFile("hotels.ser"));
     }
 
     private boolean writeToFile(List<Hotel> hotels) {
