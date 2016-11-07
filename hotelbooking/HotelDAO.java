@@ -1,8 +1,9 @@
 package hotelbooking;
 
-import java.util.*;
-import java.util.function.Consumer;
-import java.util.function.Function;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static hotelbooking.Utils.printMessage;
@@ -76,7 +77,7 @@ public class HotelDAO extends AbstractDAOImpl<Hotel> {
     public boolean cancelRoomReservation(User user, long hotelId, long roomId) {
         if (checkUserHotelRoom(user, hotelId, roomId)) {
             Room room = getRoomById(hotelId, roomId);
-            if (room != null) {
+            if (room == null) {
                 printMessage("We can't find room with id = " + roomId + " to remove reservation!");
                 return false;
             }

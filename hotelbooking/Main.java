@@ -331,7 +331,6 @@ public class Main {
         Room{roomId=7, persons=4, price=300.0, userReserved=null},
         Room{roomId=8, persons=1, price=150.0, userReserved=null},
         Room{roomId=9, persons=2, price=200.0, userReserved=null},
-        Room{roomId=10, persons=3, price=250.0, userReserved=null}]}
-         */
+        Room{roomId=10, persons=3, price=250.0, userReserved=null}]}         */
     }
 }
