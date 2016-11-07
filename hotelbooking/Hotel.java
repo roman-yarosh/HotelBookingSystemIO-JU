@@ -36,4 +36,13 @@ public class Hotel extends IndexEntity {
                 ", hotelRooms=" + hotelRooms +
                 '}';
     }
+
+    public String hotelToString() {
+        return "Hotel{" +
+                "hotelId=" + this.getId() +
+                ", hotelName='" + hotelName + '\'' +
+                ", hotelCity='" + hotelCity +
+                '}';
+    }
+
 }

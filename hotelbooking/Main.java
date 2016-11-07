@@ -1,7 +1,9 @@
 package hotelbooking;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.function.BiConsumer;
 
 import static hotelbooking.Utils.printMessage;
 
@@ -75,7 +77,7 @@ public class Main {
         map.put("hotelName", "Radisson");
         try {
             printMessage("Print all hotels by given parameters in map persons = 2, price = 200, city = 'Kiev', hotelName = 'Radisson' (controller.findRoom(map))!");
-            controller.findRoom(map).forEach(System.out::print);
+            controller.findRoom(map).forEach((hotel, rooms) -> printMessage(hotel.hotelToString() + rooms));
         } catch (NullPointerException e) {
             printMessage("Try/Catch in main() method from Main class: NullPointerException! There are no registered users or current user is not set so findRoom() method returns null!");
         }
@@ -87,7 +89,7 @@ public class Main {
         //map.put("hotelName", "Radisson");
         try {
             printMessage("\nPrint all hotels by given parameters in map price = 180, city = 'Kiev' (controller.findRoom(map))!");
-            controller.findRoom(map).forEach(System.out::print);
+            controller.findRoom(map).forEach((hotel, rooms) -> printMessage(hotel.hotelToString() + rooms));
         } catch (NullPointerException e) {
             printMessage("Try/Catch in main() method from Main class: NullPointerException! There are no registered users or current user is not set so findRoom() method returns null!");
         }
@@ -281,17 +283,18 @@ public class Main {
 
         Print all hotels by given parameters in map persons = 2, price = 200, city = 'Kiev', hotelName = 'Radisson' (controller.findRoom(map))!
 
-        Hotel{hotelId=1, hotelName='Radisson Hotel', hotelCity='Kiev', hotelRooms=[
+        Hotel{hotelId=1, hotelName='Radisson Hotel', hotelCity='Kiev}[
         Room{roomId=1, persons=2, price=200.0, userReserved=null},
         Room{roomId=5, persons=2, price=200.0, userReserved=null},
-        Room{roomId=9, persons=2, price=200.0, userReserved=null}]}
+        Room{roomId=9, persons=2, price=200.0, userReserved=null}]
+
 
         Print all hotels by given parameters in map price = 180, city = 'Kiev' (controller.findRoom(map))!
 
-        Hotel{hotelId=1, hotelName='Radisson Hotel', hotelCity='Kiev', hotelRooms=[]}
-        Hotel{hotelId=2, hotelName='Hyatt Regency Hotel', hotelCity='Kiev', hotelRooms=[
+        Hotel{hotelId=2, hotelName='Hyatt Regency Hotel', hotelCity='Kiev}[
         Room{roomId=14, persons=1, price=180.0, userReserved=null},
-        Room{roomId=18, persons=1, price=180.0, userReserved=null}]}
+        Room{roomId=18, persons=1, price=180.0, userReserved=null}]
+
         Hotel is not found in the system by id = 7! Please, enter another hotel!
 
         controller.bookRoom(roomId, userId, hotelId): No rooms found by given parameters hotelId = 7, roomId = 1, userId = 2

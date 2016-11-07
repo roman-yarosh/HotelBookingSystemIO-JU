@@ -65,8 +65,10 @@ public class HotelDAO extends AbstractDAOImpl<Hotel> {
     public boolean bookRoom(User user, long hotelId, long roomId) {
         if (checkUserHotelRoom(user, hotelId, roomId)) {
             Room room = getRoomById(hotelId, roomId);
-            room.setUserReserved(user);
-            return true;
+            if (room != null) {
+                room.setUserReserved(user);
+                return true;
+            }
         }
         return false;
     }
@@ -74,6 +76,10 @@ public class HotelDAO extends AbstractDAOImpl<Hotel> {
     public boolean cancelRoomReservation(User user, long hotelId, long roomId) {
         if (checkUserHotelRoom(user, hotelId, roomId)) {
             Room room = getRoomById(hotelId, roomId);
+            if (room != null) {
+                printMessage("We can't find room with id = " + roomId + " to remove reservation!");
+                return false;
+            }
             if (user.equals(room.getUserReserved())) {
                 room.setUserReserved(null);
                 printMessage("Reservation removed from room with id = " + roomId);
@@ -137,6 +143,9 @@ public class HotelDAO extends AbstractDAOImpl<Hotel> {
                                      (price > 0 ? room.getPrice() == price : true)))
                     .sorted((room1, room2) -> Double.compare(room1.getPrice(), room2.getPrice()))
                     .collect(Collectors.toList()));
+            if (entry.getValue().size() == 0) {
+                resultHotelMap.remove(entry.getKey());
+            }
         }
         return resultHotelMap;
     }
