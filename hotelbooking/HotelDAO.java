@@ -113,31 +113,12 @@ public class HotelDAO extends AbstractDAOImpl<Hotel> {
         return true;
     }
 
-    public List<Hotel> getRoomsOld(String city, String hotelName, double price, int persons) {
-
-        List<Hotel> resultHotelList = new ArrayList<>();
-        List<Room> roomList;
-        //Select hotels with given city and hotel name. If city or hotel name is null filter returns all hotels.
-        // If only one parameter given another parameter is ignored by true value in ternary operator
-        List<Hotel> hotelList = getAll().stream()
-                .filter(hotel -> ((city != null && city.length() > 2) ? hotel.getCity().toLowerCase().contains(city.toLowerCase()) : true) &&
-                        ((hotelName != null && hotelName.length() > 2) ? hotel.getName().toLowerCase().contains(hotelName.toLowerCase()) : true))
-                .collect(Collectors.toList());
-
-        for (Hotel hotel : hotelList) {
-            roomList = hotel.getHotelRooms().stream()
-                    .filter(room -> ((persons > 0 ? room.getPersons() == persons : true) &&
-                            (price > 0 ? room.getPrice() == price : true)))
-                    .collect(Collectors.toList());
-            resultHotelList.add(new Hotel(hotel.getId(), hotel.getName(), hotel.getCity(), roomList));
-        }
-        return resultHotelList;
-    }
-
+    //Select hotels with given city and hotel name. If city or hotel name is null filter returns all hotels.
+    // If only one parameter given another parameter is ignored by true value in ternary operator
     public Map<Hotel, List<Room>> getRooms(String city, String hotelName, double price, int persons) {
-        //Select hotels with given city and hotel name. If city or hotel name is null filter returns all hotels.
-        // If only one parameter given another parameter is ignored by true value in ternary operator
+
         Map<Hotel, List<Room>> resultHotelMap = getHotelMap(city, hotelName);
+
         for (Map.Entry<Hotel, List<Room>> entry : resultHotelMap.entrySet()) {
             entry.getValue().addAll(entry.getKey().getHotelRooms().stream()
                     .filter(room -> ((persons > 0 ? room.getPersons() == persons : true) &&
@@ -152,7 +133,9 @@ public class HotelDAO extends AbstractDAOImpl<Hotel> {
     }
 
     public Map<Hotel, List<Room>> getHotelMap(String city, String hotelName) {
+
         Map<Hotel, List<Room>> resultHotelMap = new HashMap<>();
+
         getAll().stream()
                 .filter(hotel -> ((city != null && city.length() > 2) ? hotel.getCity().toLowerCase().contains(city.toLowerCase()) : true) &&
                         ((hotelName != null && hotelName.length() > 2) ? hotel.getName().toLowerCase().contains(hotelName.toLowerCase()) : true))
