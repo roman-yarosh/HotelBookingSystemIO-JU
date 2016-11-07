@@ -1,6 +1,8 @@
 package hotelbooking;
 
-public abstract class IndexEntity {
+import java.io.Serializable;
+
+public abstract class IndexEntity implements Serializable {
 
     private long id;
 

@@ -1,6 +1,8 @@
 package hotelbooking;
 
-public class Room extends IndexEntity {
+import java.io.Serializable;
+
+public class Room extends IndexEntity implements Serializable {
 
     private int persons;
     private double price;

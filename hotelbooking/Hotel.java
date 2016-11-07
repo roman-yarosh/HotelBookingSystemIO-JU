@@ -1,8 +1,9 @@
 package hotelbooking;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Hotel extends IndexEntity {
+public class Hotel extends IndexEntity implements Serializable {
 
     private String hotelName;
     private String hotelCity;

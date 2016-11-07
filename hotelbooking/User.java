@@ -1,6 +1,8 @@
 package hotelbooking;
 
-public class User extends IndexEntity {
+import java.io.Serializable;
+
+public class User extends IndexEntity implements Serializable {
 
     private String firstName;
     private String lastName;

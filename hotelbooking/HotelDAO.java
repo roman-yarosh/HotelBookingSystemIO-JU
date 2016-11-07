@@ -1,9 +1,8 @@
 package hotelbooking;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.*;
+import java.util.*;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import static hotelbooking.Utils.printMessage;
@@ -21,6 +20,7 @@ public class HotelDAO extends AbstractDAOImpl<Hotel> {
 
     private HotelDAO() {
 
+        List<Hotel> hotelList = new ArrayList<>();
         List<List<Room>> roomLists = new ArrayList<>();
         for (int j = 0; j < 6; j++) {
             List<Room> roomsHotel = new ArrayList<>();
@@ -29,12 +29,49 @@ public class HotelDAO extends AbstractDAOImpl<Hotel> {
             }
             roomLists.add(roomsHotel);
         }
-        this.save(new Hotel(1, "Radisson Hotel","Kiev", roomLists.get(0)));
-        this.save(new Hotel(2, "Hyatt Regency Hotel","Kiev",roomLists.get(1)));
-        this.save(new Hotel(3, "Leopolis Hotel","Lvov",roomLists.get(2)));
-        this.save(new Hotel(4, "Nobilis Hotel","Lvov",roomLists.get(3)));
-        this.save(new Hotel(5, "Duke Hotel Odessa","Odessa",roomLists.get(4)));
-        this.save(new Hotel(6, "Bristol Hotel","Odessa",roomLists.get(5)));
+        hotelList.add(new Hotel(1, "Radisson Hotel","Kiev", roomLists.get(0)));
+        hotelList.add(new Hotel(2, "Hyatt Regency Hotel","Kiev",roomLists.get(1)));
+        hotelList.add(new Hotel(3, "Leopolis Hotel","Lvov",roomLists.get(2)));
+        hotelList.add(new Hotel(4, "Nobilis Hotel","Lvov",roomLists.get(3)));
+        hotelList.add(new Hotel(5, "Duke Hotel Odessa","Odessa",roomLists.get(4)));
+        hotelList.add(new Hotel(6, "Bristol Hotel","Odessa",roomLists.get(5)));
+
+        if (!writeToFile(hotelList)) {
+            printMessage("Error writing hotelList to file!");
+        };
+        saveAll(readFromFile("hotels.ser"));
+    }
+
+    private boolean writeToFile(List<Hotel> hotels) {
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream("hotels.ser");
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+            objectOutputStream.writeObject(hotels);
+            objectOutputStream.close();
+            return true;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    private List<Hotel> readFromFile(String fileName) {
+        List<Hotel> hotels = null;
+        try {
+            FileInputStream fileInputStream = new FileInputStream(fileName);
+            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+            hotels = (List<Hotel>) objectInputStream.readObject();
+            objectInputStream.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return hotels;
     }
 
     public List<Hotel> getByCity(String city) {
@@ -126,8 +163,11 @@ public class HotelDAO extends AbstractDAOImpl<Hotel> {
                                      (price > 0 ? room.getPrice() == price : true)))
                     .sorted((room1, room2) -> Double.compare(room1.getPrice(), room2.getPrice()))
                     .collect(Collectors.toList()));
-            if (entry.getValue().size() == 0) {
-                resultHotelMap.remove(entry.getKey());
+        }
+        Iterator iterator = resultHotelMap.values().iterator();
+        while (iterator.hasNext()) {
+            if (((List<Room>) iterator.next()).size() == 0){
+                iterator.remove();
             }
         }
         return resultHotelMap;
