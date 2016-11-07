@@ -20,6 +20,7 @@ public class HotelDAO extends AbstractDAOImpl<Hotel> {
 
     private HotelDAO() {
 
+
         List<List<Room>> roomLists = new ArrayList<>();
         for (int j = 0; j < 6; j++) {
             List<Room> roomsHotel = new ArrayList<>();
