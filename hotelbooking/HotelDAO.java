@@ -2,7 +2,6 @@ package hotelbooking;
 
 import java.io.*;
 import java.util.*;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import static hotelbooking.Utils.printMessage;
@@ -38,38 +37,47 @@ public class HotelDAO extends AbstractDAOImpl<Hotel> {
 
         if (!writeToFile(hotelList)) {
             printMessage("Error writing hotelList to file!");
-        };
+        }
         this.saveAll(readFromFile("hotels.ser"));
     }
 
     private boolean writeToFile(List<Hotel> hotels) {
+        ObjectOutputStream objectOutputStream = null;
         try {
             FileOutputStream fileOutputStream = new FileOutputStream("hotels.ser");
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+            objectOutputStream = new ObjectOutputStream(fileOutputStream);
             objectOutputStream.writeObject(hotels);
-            objectOutputStream.close();
             return true;
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                objectOutputStream.close();
+            } catch (IOException | NullPointerException e) {
+                e.printStackTrace();
+            }
         }
+
         return false;
     }
 
     private List<Hotel> readFromFile(String fileName) {
         List<Hotel> hotels = null;
+        ObjectInputStream objectInputStream = null;
         try {
             FileInputStream fileInputStream = new FileInputStream(fileName);
-            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+            objectInputStream = new ObjectInputStream(fileInputStream);
             hotels = (List<Hotel>) objectInputStream.readObject();
-            objectInputStream.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                objectInputStream.close();
+            } catch (IOException | NullPointerException e) {
+                e.printStackTrace();
+            }
         }
         return hotels;
     }
@@ -157,8 +165,7 @@ public class HotelDAO extends AbstractDAOImpl<Hotel> {
         Map<Hotel, List<Room>> resultHotelMap = getHotelMap(city, hotelName);
 
         for (Map.Entry<Hotel, List<Room>> entry : resultHotelMap.entrySet()) {
-            entry.getValue().addAll(
-                    entry.getKey().getHotelRooms().stream()
+            entry.getValue().addAll(entry.getKey().getHotelRooms().stream()
                     .filter(room -> ((persons > 0 ? room.getPersons() == persons : true) &&
                                      (price > 0 ? room.getPrice() == price : true)))
                     .sorted((room1, room2) -> Double.compare(room1.getPrice(), room2.getPrice()))
